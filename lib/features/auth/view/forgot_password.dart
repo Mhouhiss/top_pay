@@ -202,7 +202,7 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
                               ),
                             ],
 
-                            const Spacer(),
+                            const SizedBox(height: AppSizes.xxl),
                             CustomButton(
                               label: 'Send Reset Code',
                               isLoading: authState.isLoading,

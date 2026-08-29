@@ -361,7 +361,7 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
                                   ),
                                 ),
 
-                          const Spacer(),
+                          const SizedBox(height: AppSizes.xxl),
                           CustomButton(
                             label: isRegistration
                                 ? 'Verify Account'

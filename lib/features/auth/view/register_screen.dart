@@ -68,7 +68,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
     if (success) {
       context.push(
         AppRoutes.otp,
-        extra: OtpScreen(email: email, otpType: OtpType.registration),
+        extra: {'email': email, 'otpType': OtpType.registration},
       );
     }
   }
@@ -182,7 +182,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
 
                             CustomTextField(
                               label: 'Phone Number',
-                              hint: '080* *** ****',
+                              hint: 'Enter your phone number',
                               controller: _phoneController,
                               keyboardType: TextInputType.phone,
                               textInputAction: TextInputAction.next,
@@ -194,7 +194,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
 
                             CustomTextField(
                               label: 'Email Address',
-                              hint: 'johndoe@example.com',
+                              hint: 'Enter your email address',
                               controller: _emailController,
                               keyboardType: TextInputType.emailAddress,
                               textInputAction: TextInputAction.next,
@@ -206,7 +206,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
 
                             CustomTextField(
                               label: 'Password',
-                              hint: 'Enter at least 8 characters',
+                              hint: 'Enter your password',
                               controller: _passwordController,
                               textInputAction: TextInputAction.next,
                               enabled: !authState.isLoading,
