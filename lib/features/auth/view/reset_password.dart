@@ -45,21 +45,12 @@ class _ResetPasswordScreenState extends ConsumerState<ResetPasswordScreen> {
 
     FocusManager.instance.primaryFocus?.unfocus();
 
-    try {
-      await ref
-          .read(authViewModelProvider.notifier)
-          .resetPassword(
-            password: _passwordController.text.trim(),
-            confirmPassword: _confirmPasswordController.text.trim(),
-          );
+    final success = await ref
+        .read(authViewModelProvider.notifier)
+        .resetPassword(newPassword: _passwordController.text.trim());
 
-      if (!mounted) return;
-      context.go(AppRoutes.login);
-    } catch (e) {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text(e.toString())));
-    }
+    if (!mounted || !success) return;
+    context.go(AppRoutes.login);
   }
 
   @override

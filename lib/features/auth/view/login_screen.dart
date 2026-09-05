@@ -9,7 +9,6 @@ import 'package:top_pay/core/constants/app_sizes.dart';
 import 'package:top_pay/shared/components/custom_button.dart';
 import 'package:top_pay/shared/components/custom_textfield.dart';
 import 'package:top_pay/core/router/router.dart';
-import 'package:top_pay/core/theme/app_colors.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
@@ -44,28 +43,15 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
     if (!_formKey.currentState!.validate()) return;
 
-    try {
-      final authViewModel = ref.read(authViewModelProvider.notifier);
-      final success = await authViewModel.login(
-        email: _emailController.text.trim(),
-        password: _passwordController.text,
-      );
-      if (!mounted) return;
+    await ref
+        .read(authViewModelProvider.notifier)
+        .login(
+          email: _emailController.text.trim(),
+          password: _passwordController.text,
+        );
+    if (!mounted) return;
 
-      if (success) {
-        context.go(AppRoutes.home);
-      }
-    } catch (e) {
-      if (!mounted) return;
-
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(e.toString()),
-          backgroundColor: AppColors.error,
-          duration: const Duration(seconds: 3),
-        ),
-      );
-    }
+    context.go(AppRoutes.home);
   }
 
   @override

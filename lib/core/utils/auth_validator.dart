@@ -15,13 +15,16 @@ class Validators {
     return null;
   }
 
-  static String? fullName(String? value) {
-    final fullName = value?.trim() ?? '';
-    if (fullName.isEmpty) {
-      return 'Full name is required';
+  static String? username(String? value) {
+    final username = value?.trim() ?? '';
+    if (username.isEmpty) {
+      return 'Username is required';
     }
-    if (fullName.split(RegExp(r'\s+')).length < 2) {
-      return 'Enter your first and last name';
+    if (username.length < 3) {
+      return 'Username must be at least 3 characters';
+    }
+    if (!RegExp(r'^[a-zA-Z0-9_-]+$').hasMatch(username)) {
+      return 'Invalid characters';
     }
     return null;
   }

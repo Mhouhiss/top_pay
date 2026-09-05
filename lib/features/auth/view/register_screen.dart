@@ -21,7 +21,7 @@ class RegisterScreen extends ConsumerStatefulWidget {
 class _RegisterScreenState extends ConsumerState<RegisterScreen> {
   final _formKey = GlobalKey<FormState>();
 
-  final _fullNameController = TextEditingController();
+  final _usernameController = TextEditingController();
   final _phoneController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
@@ -36,7 +36,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
 
   @override
   void dispose() {
-    _fullNameController.dispose();
+    _usernameController.dispose();
     _phoneController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
@@ -53,10 +53,10 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
 
     final email = _emailController.text.trim();
 
-    final success = await ref
+    await ref
         .read(authViewModelProvider.notifier)
         .register(
-          fullName: _fullNameController.text.trim(),
+          username: _usernameController.text.trim(),
           email: email,
           phoneNumber: _phoneController.text.trim(),
           password: _passwordController.text,
@@ -65,12 +65,10 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
 
     if (!mounted) return;
 
-    if (success) {
-      context.push(
-        AppRoutes.otp,
-        extra: {'email': email, 'otpType': OtpType.registration},
-      );
-    }
+    context.push(
+      AppRoutes.otp,
+      extra: {'email': email, 'otpType': OtpType.registration},
+    );
   }
 
   @override
@@ -169,14 +167,14 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                             const SizedBox(height: AppSizes.xl),
 
                             CustomTextField(
-                              label: 'Full Name',
-                              hint: 'John Doe',
-                              controller: _fullNameController,
+                              label: 'Username',
+                              hint: 'John',
+                              controller: _usernameController,
                               textCapitalization: TextCapitalization.words,
                               textInputAction: TextInputAction.next,
                               enabled: !authState.isLoading,
                               prefixIcon: const Icon(Icons.person_outline),
-                              validator: Validators.fullName,
+                              validator: Validators.username,
                             ),
                             const SizedBox(height: AppSizes.md),
 

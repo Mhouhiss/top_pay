@@ -44,15 +44,14 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
 
     final success = await ref
         .read(authViewModelProvider.notifier)
-        .sendPasswordResetOtp(email);
+        .requestPasswordReset(email);
 
-    if (!mounted) return;
-    if (success) {
-      context.push(
-        AppRoutes.otp,
-        extra: OtpScreen(email: email, otpType: OtpType.forgotPassword),
-      );
-    }
+    if (!mounted || !success) return;
+
+    context.push(
+      AppRoutes.otp,
+      extra: OtpScreen(email: email, otpType: OtpType.forgotPassword),
+    );
   }
 
   @override

@@ -49,7 +49,7 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
         case OtpType.registration:
           final success = await ref
               .read(authViewModelProvider.notifier)
-              .sendRegistrationOtp(widget.email);
+              .sendVerificationEmail();
 
           if (!mounted) return;
 
@@ -102,17 +102,12 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
   Future<void> _resend() async {
     if (!_canResend || ref.read(authViewModelProvider).isLoading) return;
 
-    switch (widget.otpType) {
-      case OtpType.registration:
-        await ref.read(authViewModelProvider.notifier).resendRegistrationOtp();
-        break;
-      case OtpType.forgotPassword:
-        await ref.read(authViewModelProvider.notifier).resendPasswordResetOtp();
-        break;
-    }
+    final success = await ref
+        .read(authViewModelProvider.notifier)
+        .sendVerificationEmail();
 
     if (!mounted) return;
-    if (ref.read(authViewModelProvider).errorMessage == null) {
+    if (success) {
       _startResendTimer();
     }
   }
@@ -124,15 +119,11 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
 
     final success = await ref
         .read(authViewModelProvider.notifier)
-        .verifyOtp(code);
+        .verifyEmail();
 
-    if (!mounted) return;
+    if (!mounted || !success) return;
 
-    if (!success) {
-      _pinController.clear();
-      _pinFocusNode.requestFocus();
-      return;
-    }
+    _pinController.clear();
 
     switch (widget.otpType) {
       case OtpType.registration:
