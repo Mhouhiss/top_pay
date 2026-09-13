@@ -13,7 +13,6 @@ import 'auth_state.dart';
 class AuthViewModel extends StateNotifier<AuthState> {
   final FirebaseAuthService _authService;
   final LocalStorageService _storage;
-
   bool _isDisposed = false;
 
   AuthViewModel(this._authService, this._storage) : super(const AuthState());
@@ -30,8 +29,7 @@ class AuthViewModel extends StateNotifier<AuthState> {
     }
   }
 
-  Future<void> login({required String email, required String password}) async {
-    if (_isDisposed) return;
+  Future<bool> login({required String email, required String password}) async {
     Logger.userAction('Login Attempt');
     _safeSetState(state.copyWith(isLoading: true, clearError: true));
 
@@ -45,22 +43,23 @@ class AuthViewModel extends StateNotifier<AuthState> {
       );
 
       Logger.success('Login successful for ${userModel.email}');
+      return true;
     } catch (e) {
       Logger.error('Login error', error: e);
       _safeSetState(
         state.copyWith(isLoading: false, errorMessage: _formatError(e)),
       );
+      return false;
     }
   }
 
-  Future<void> register({
+  Future<bool> register({
     required String email,
     required String password,
     required String username,
     String? phoneNumber,
     String? referralCode,
   }) async {
-    if (_isDisposed) return;
     Logger.userAction('Sign up attempt');
     _safeSetState(state.copyWith(isLoading: true, clearError: true));
 
@@ -83,6 +82,7 @@ class AuthViewModel extends StateNotifier<AuthState> {
       );
 
       Logger.success('Sign up successful for ${userModel.email}');
+      return true;
     } catch (e) {
       Logger.error('Registration failed', error: e);
       _safeSetState(
@@ -92,11 +92,11 @@ class AuthViewModel extends StateNotifier<AuthState> {
           errorMessage: _formatError(e),
         ),
       );
+      return false;
     }
   }
 
   Future<bool> sendVerificationEmail() async {
-    if (_isDisposed) return false;
     Logger.userAction('Send verification Email');
     _safeSetState(state.copyWith(isLoading: true, clearError: true));
 
@@ -116,7 +116,6 @@ class AuthViewModel extends StateNotifier<AuthState> {
   }
 
   Future<bool> verifyEmail() async {
-    if (_isDisposed) return false;
     Logger.userAction('Verify Email');
     _safeSetState(state.copyWith(isLoading: true, clearError: true));
 
@@ -146,15 +145,11 @@ class AuthViewModel extends StateNotifier<AuthState> {
   }
 
   Future<bool> requestPasswordReset(String email) async {
-    if (_isDisposed) return false;
-
-    final trimmedEmail = email.trim();
-
-    Logger.userAction('Request Password Reset', data: {'email': trimmedEmail});
+    Logger.userAction('Request Password Reset', data: {'email': email});
     _safeSetState(state.copyWith(isLoading: true, clearError: true));
 
     try {
-      await _authService.sendPasswordResetEmail(trimmedEmail);
+      await _authService.sendPasswordResetEmail(email);
 
       _safeSetState(state.copyWith(isLoading: false, clearError: true));
       Logger.success('Password reset email sent');
@@ -169,7 +164,6 @@ class AuthViewModel extends StateNotifier<AuthState> {
   }
 
   Future<bool> resetPassword({required String newPassword}) async {
-    if (_isDisposed) return false;
     Logger.userAction('Reset Password');
     _safeSetState(state.copyWith(isLoading: true, clearError: true));
 
@@ -188,8 +182,7 @@ class AuthViewModel extends StateNotifier<AuthState> {
     }
   }
 
-  Future<void> deleteAccount() async {
-    if (_isDisposed) return;
+  Future<bool> deleteAccount() async {
     Logger.userAction('Delete Account');
     _safeSetState(state.copyWith(isLoading: true, clearError: true));
 
@@ -199,35 +192,34 @@ class AuthViewModel extends StateNotifier<AuthState> {
 
       _safeSetState(const AuthState(status: AuthStatus.unauthenticated));
       Logger.success('Account deleted');
+      return true;
     } catch (e) {
       Logger.error('Failed to delete account', error: e);
       _safeSetState(
         state.copyWith(isLoading: false, errorMessage: _formatError(e)),
       );
+      return false;
     }
   }
 
-  Future<void> logout() async {
-    if (_isDisposed) return;
-
+  Future<bool> logout() async {
     Logger.userAction('Logout');
 
     try {
       await _authService.logout();
-      await _storage.removeDeviceToken();
 
       _safeSetState(const AuthState(status: AuthStatus.unauthenticated));
       Logger.success('Logout successful');
+      return true;
     } catch (e) {
       Logger.error('Logout failed', error: e);
       _safeSetState(state.copyWith(errorMessage: _formatError(e)));
+      return false;
     }
   }
 
   void clearError() {
-    if (!_isDisposed) {
-      _safeSetState(state.copyWith(clearError: true));
-    }
+    _safeSetState(state.copyWith(clearError: true));
   }
 
   String _formatError(Object e) {

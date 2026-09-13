@@ -43,13 +43,13 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
     if (!_formKey.currentState!.validate()) return;
 
-    await ref
+    final success = await ref
         .read(authViewModelProvider.notifier)
         .login(
           email: _emailController.text.trim(),
           password: _passwordController.text,
         );
-    if (!mounted) return;
+    if (!mounted || !success) return;
 
     context.go(AppRoutes.home);
   }

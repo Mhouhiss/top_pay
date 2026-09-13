@@ -4,7 +4,6 @@ import 'package:top_pay/core/utils/logger.dart';
 
 class LocalStorageService {
   static const String _onboardingKey = 'has_seen_onboarding';
-  static const String _deviceTokenKey = 'device_token';
   static const String _themeKey = 'theme_mode';
 
   final SharedPreferences _prefs;
@@ -45,36 +44,6 @@ class LocalStorageService {
       Logger.success('Theme saved: $mode');
     } catch (e) {
       Logger.error('Failed to save theme', error: e);
-      rethrow;
-    }
-  }
-
-  String? get deviceToken {
-    try {
-      return _prefs.getString(_deviceTokenKey);
-    } catch (e) {
-      Logger.error('Fail to read token', error: e);
-      return null;
-    }
-  }
-
-  Future<void> saveDeviceToken(String token) async {
-    try {
-      await _prefs.setString(_deviceTokenKey, token);
-      Logger.success('Device token Saved');
-    } catch (e) {
-      Logger.error('Failed to save token', error: e);
-      rethrow;
-    }
-  }
-
-  Future<void> removeDeviceToken() async {
-    try {
-      await _prefs.remove(_deviceTokenKey);
-      Logger.success('Token removed');
-    } catch (e) {
-      Logger.error('Failed to remove token', error: e);
-      rethrow;
     }
   }
 

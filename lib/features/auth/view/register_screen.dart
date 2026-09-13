@@ -53,7 +53,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
 
     final email = _emailController.text.trim();
 
-    await ref
+    final success = await ref
         .read(authViewModelProvider.notifier)
         .register(
           username: _usernameController.text.trim(),
@@ -63,7 +63,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
           referralCode: _referralController.text.trim(),
         );
 
-    if (!mounted) return;
+    if (!mounted || !success) return;
 
     context.push(
       AppRoutes.otp,

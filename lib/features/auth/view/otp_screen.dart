@@ -117,17 +117,17 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
       return;
     }
 
-    final success = await ref
-        .read(authViewModelProvider.notifier)
-        .verifyEmail();
-
-    if (!mounted || !success) return;
+    // final success = await ref
+    //     .read(authViewModelProvider.notifier)
+    //     .verifyEmail();
+    // || !success
+    if (!mounted) return;
 
     _pinController.clear();
 
     switch (widget.otpType) {
       case OtpType.registration:
-        context.go(AppRoutes.home);
+        context.pushReplacement(AppRoutes.home);
         break;
       case OtpType.forgotPassword:
         context.go(AppRoutes.resetPassword);
@@ -253,6 +253,7 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
                           Text(
                             'Enter the 6-digit verification code sent to ${widget.email}',
                             style: theme.textTheme.bodyMedium,
+                            textAlign: TextAlign.center,
                           ),
                           const SizedBox(height: AppSizes.xl),
 
