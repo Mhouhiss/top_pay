@@ -13,8 +13,6 @@ class FirebaseAuthService {
   Stream<User?> get authStateChanges => _firebaseAuth.authStateChanges();
 
   Future<User> login({required String email, required String password}) async {
-    Logger.userAction('Login Attempt', data: {'email': email});
-
     try {
       final credential = await _firebaseAuth.signInWithEmailAndPassword(
         email: email,
@@ -24,7 +22,6 @@ class FirebaseAuthService {
       if (user == null) {
         throw Exception('Login failed. Please try again.');
       }
-      Logger.success('Login successful for ${user.email}');
       return user;
     } on FirebaseAuthException catch (e) {
       Logger.error('Firebase login failed (${e.code})', error: e);
@@ -39,7 +36,6 @@ class FirebaseAuthService {
     String? phoneNumber,
     String? referralCode,
   }) async {
-    Logger.userAction('Signup Attempt', data: {'email': email});
     try {
       final credential = await _firebaseAuth.createUserWithEmailAndPassword(
         email: email,
@@ -50,8 +46,6 @@ class FirebaseAuthService {
         throw Exception('Registration failed. Please try again.');
       }
       await user.updateDisplayName(username);
-
-      Logger.success('Firebase signup successful for ${user.email}');
       return user;
     } on FirebaseAuthException catch (e) {
       Logger.error('Failed to create account', error: e);
@@ -67,7 +61,6 @@ class FirebaseAuthService {
         throw Exception('No user is currently logged in');
       }
       await user.sendEmailVerification();
-      Logger.success('Verification email sent to ${user.email}');
     } on FirebaseAuthException catch (e) {
       Logger.error('Failed to send verification email (${e.code})', error: e);
       throw Exception(FirebaseAuthErrorMapper.map(e));
@@ -82,11 +75,6 @@ class FirebaseAuthService {
       }
       await user.reload();
       final refreshedUser = _firebaseAuth.currentUser;
-
-      Logger.debug(
-        'Email verification status refreshed: '
-        '${refreshedUser?.emailVerified ?? false}',
-      );
       return refreshedUser?.emailVerified ?? false;
     } on FirebaseAuthException catch (e) {
       Logger.error('Failed to refresh user (${e.code})', error: e);
@@ -97,7 +85,6 @@ class FirebaseAuthService {
   Future<void> sendPasswordResetEmail(String email) async {
     try {
       await _firebaseAuth.sendPasswordResetEmail(email: email.trim());
-      Logger.success('Password reset email sent to $email');
     } on FirebaseAuthException catch (e) {
       Logger.error('Failed to send password reset email (${e.code})', error: e);
       throw Exception(FirebaseAuthErrorMapper.map(e));
@@ -109,7 +96,6 @@ class FirebaseAuthService {
       final user = _firebaseAuth.currentUser;
       if (user == null) throw Exception('No user is currently logged in.');
       await user.updatePassword(newPassword);
-      Logger.success('Password updated');
     } on FirebaseAuthException catch (e) {
       Logger.error('Failed to update password (${e.code})', error: e);
       throw Exception(FirebaseAuthErrorMapper.map(e));
@@ -121,7 +107,6 @@ class FirebaseAuthService {
       final user = _firebaseAuth.currentUser;
       if (user == null) throw Exception('No user is currently logged in.');
       await user.delete();
-      Logger.success('Firebase account deleted');
     } on FirebaseAuthException catch (e) {
       Logger.error('Failed to delete Firebase account (${e.code})', error: e);
       throw Exception(FirebaseAuthErrorMapper.map(e));
@@ -131,7 +116,6 @@ class FirebaseAuthService {
   Future<void> logout() async {
     try {
       await _firebaseAuth.signOut();
-      Logger.success('Firebase Sign out successful');
     } on FirebaseAuthException catch (e) {
       Logger.error('Firebase sign out failed (${e.code})', error: e);
       throw Exception(FirebaseAuthErrorMapper.map(e));

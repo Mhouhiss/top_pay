@@ -126,7 +126,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   top: false,
                   child: GestureDetector(
                     behavior: HitTestBehavior.opaque,
-                    onTap: () => Focus.of(context).unfocus(),
+                    onTap: () => FocusScope.of(context).unfocus(),
                     child: SingleChildScrollView(
                       keyboardDismissBehavior:
                           ScrollViewKeyboardDismissBehavior.onDrag,
