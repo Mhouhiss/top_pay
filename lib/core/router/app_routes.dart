@@ -8,7 +8,7 @@ import '../../features/auth/view/forgot_password.dart';
 import '../../features/auth/view/register_screen.dart';
 import '../../features/auth/view/reset_password.dart';
 import '../../features/auth/view/otp_screen.dart';
-import '../../features/home/view/home_screen.dart';
+import '../../features/home/view/home_shell.dart';
 
 final GoRouter router = GoRouter(
   initialLocation: AppRoutes.splash,
@@ -53,7 +53,7 @@ final GoRouter router = GoRouter(
 
     GoRoute(
       path: AppRoutes.home,
-      builder: (context, state) => const HomeScreen(),
+      builder: (context, state) => const HomeShell(),
     ),
   ],
 );
