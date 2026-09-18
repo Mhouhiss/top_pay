@@ -52,16 +52,16 @@ class _HomeShellState extends State<HomeShell> {
 
         _handleBackPress();
       },
-
       child: Scaffold(
         backgroundColor: AppColors.white,
         body: IndexedStack(index: _currentIndex, children: _pages),
         bottomNavigationBar: NavigationBar(
+          height: 68,
           selectedIndex: _currentIndex,
           onDestinationSelected: _onDestinationSelected,
           elevation: 8,
           backgroundColor: colorScheme.surface,
-          indicatorColor: colorScheme.primary.withValues(alpha: 0.12),
+          indicatorColor: colorScheme.primary.withValues(alpha: 0.2),
           destinations: [
             NavigationDestination(
               icon: Icon(
@@ -69,7 +69,7 @@ class _HomeShellState extends State<HomeShell> {
                 color: colorScheme.onSurfaceVariant,
               ),
               selectedIcon: Icon(Icons.home, color: colorScheme.primary),
-              label: 'Home',
+              label: 'Dashboard',
             ),
             NavigationDestination(
               icon: Icon(

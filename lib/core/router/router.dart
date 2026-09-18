@@ -12,6 +12,7 @@ class AppRoutes {
 
   static const home = '/home';
   static const transactions = '/transactions';
+  static const notifications = '/notifications';
   static const wallet = '/wallet';
   static const profile = '/profile';
 

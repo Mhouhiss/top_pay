@@ -1,5 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:top_pay/core/router/router.dart';
+import 'package:top_pay/features/notification/view/notification_screen.dart';
 
 import '../../features/splash/view/splash_screen.dart';
 import '../../features/onboarding/view/onboarding_screen.dart';
@@ -54,6 +55,10 @@ final GoRouter router = GoRouter(
     GoRoute(
       path: AppRoutes.home,
       builder: (context, state) => const HomeShell(),
+    ),
+    GoRoute(
+      path: AppRoutes.notifications,
+      builder: (context, state) => const NotificationScreen(),
     ),
   ],
 );
