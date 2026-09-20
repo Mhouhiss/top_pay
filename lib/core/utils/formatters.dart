@@ -3,6 +3,12 @@ import 'package:intl/intl.dart';
 class Formatters {
   Formatters._();
 
+  static String dayText(DateTime time) {
+    if (time.hour < 12) return 'morning';
+    if (time.hour < 16) return 'afternoon';
+    return 'evening';
+  }
+
   static final _currency =
   NumberFormat.currency(locale: 'en_NG', symbol: '₦', decimalDigits: 2);
 

@@ -127,145 +127,149 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   child: GestureDetector(
                     behavior: HitTestBehavior.opaque,
                     onTap: () => FocusScope.of(context).unfocus(),
-                    child: SingleChildScrollView(
-                      keyboardDismissBehavior:
-                          ScrollViewKeyboardDismissBehavior.onDrag,
+                    child: Padding(
                       padding: const EdgeInsets.fromLTRB(
                         AppSizes.lg,
-                        AppSizes.xl,
                         AppSizes.lg,
-                        AppSizes.xl,
+                        AppSizes.lg,
+                        AppSizes.sm,
                       ),
-                      child: Form(
-                        key: _formKey,
-                        autovalidateMode: AutovalidateMode.onUnfocus,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            Text(
-                              'Welcome back',
-                              style: theme.textTheme.headlineSmall,
-                            ),
-                            const SizedBox(height: AppSizes.xl),
+                      child: SingleChildScrollView(
+                        keyboardDismissBehavior:
+                            ScrollViewKeyboardDismissBehavior.onDrag,
+                        child: Form(
+                          key: _formKey,
+                          autovalidateMode: AutovalidateMode.onUnfocus,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              Text(
+                                'Welcome back',
+                                style: theme.textTheme.headlineSmall,
+                              ),
+                              const SizedBox(height: AppSizes.xl),
 
-                            CustomTextField(
-                              label: 'Email Address',
-                              hint: 'johndoe@example.com',
-                              controller: _emailController,
-                              keyboardType: TextInputType.emailAddress,
-                              textInputAction: TextInputAction.next,
-                              enabled: !authState.isLoading,
-                              prefixIcon: const Icon(Icons.email_outlined),
-                              validator: Validators.email,
-                            ),
-                            const SizedBox(height: AppSizes.md),
+                              CustomTextField(
+                                label: 'Email Address',
+                                hint: 'johndoe@gmail.com',
+                                controller: _emailController,
+                                keyboardType: TextInputType.emailAddress,
+                                textInputAction: TextInputAction.next,
+                                enabled: !authState.isLoading,
+                                prefixIcon: const Icon(Icons.email_outlined),
+                                validator: Validators.email,
+                              ),
+                              const SizedBox(height: AppSizes.md),
 
-                            CustomTextField(
-                              label: 'Password',
-                              hint: 'Enter your password',
-                              controller: _passwordController,
-                              textInputAction: TextInputAction.next,
-                              enabled: !authState.isLoading,
-                              obscureText: true,
-                              prefixIcon: const Icon(Icons.lock_outline),
-                              validator: Validators.loginPassword,
-                            ),
-                            const SizedBox(height: AppSizes.xs),
+                              CustomTextField(
+                                label: 'Password',
+                                hint: 'Enter your password',
+                                controller: _passwordController,
+                                textInputAction: TextInputAction.next,
+                                enabled: !authState.isLoading,
+                                obscureText: true,
+                                prefixIcon: const Icon(Icons.lock_outline),
+                                validator: Validators.loginPassword,
+                              ),
+                              const SizedBox(height: AppSizes.xs),
 
-                            Align(
-                              alignment: Alignment.centerRight,
-                              child: TextButton(
-                                onPressed: authState.isLoading
-                                    ? null
-                                    : () => context.push(
-                                        AppRoutes.forgotPassword,
-                                      ),
-                                style: TextButton.styleFrom(
-                                  padding: EdgeInsets.zero,
-                                  minimumSize: const Size(0, 36),
-                                  tapTargetSize:
-                                      MaterialTapTargetSize.shrinkWrap,
-                                ),
-                                child: Text(
-                                  'Forgot Password?',
-                                  style: theme.textTheme.bodyMedium?.copyWith(
-                                    color: theme.colorScheme.primary,
-                                    fontWeight: FontWeight.w600,
+                              Align(
+                                alignment: Alignment.centerRight,
+                                child: TextButton(
+                                  onPressed: authState.isLoading
+                                      ? null
+                                      : () => context.push(
+                                          AppRoutes.forgotPassword,
+                                        ),
+                                  style: TextButton.styleFrom(
+                                    padding: EdgeInsets.zero,
+                                    minimumSize: const Size(0, 36),
+                                    tapTargetSize:
+                                        MaterialTapTargetSize.shrinkWrap,
+                                  ),
+                                  child: Text(
+                                    'Forgot Password?',
+                                    style: theme.textTheme.bodyMedium?.copyWith(
+                                      color: theme.colorScheme.primary,
+                                      fontWeight: FontWeight.w600,
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
 
-                            if (authState.errorMessage != null) ...[
-                              const SizedBox(height: AppSizes.sm),
-                              Container(
-                                padding: const EdgeInsets.all(AppSizes.sm),
-                                decoration: BoxDecoration(
-                                  color: theme.colorScheme.error.withValues(
-                                    alpha: 0.08,
+                              if (authState.errorMessage != null) ...[
+                                const SizedBox(height: AppSizes.sm),
+                                Container(
+                                  padding: const EdgeInsets.all(AppSizes.sm),
+                                  decoration: BoxDecoration(
+                                    color: theme.colorScheme.error.withValues(
+                                      alpha: 0.08,
+                                    ),
+                                    borderRadius: BorderRadius.circular(
+                                      AppSizes.radiusSm,
+                                    ),
                                   ),
-                                  borderRadius: BorderRadius.circular(
-                                    AppSizes.radiusSm,
+                                  child: Row(
+                                    children: [
+                                      Icon(
+                                        Icons.error_outline,
+                                        size: AppSizes.iconSm,
+                                        color: theme.colorScheme.error,
+                                      ),
+                                      const SizedBox(width: AppSizes.sm),
+                                      Expanded(
+                                        child: Text(
+                                          authState.errorMessage!,
+                                          style: theme.textTheme.bodySmall
+                                              ?.copyWith(
+                                                color: theme.colorScheme.error,
+                                              ),
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
+                              ],
+
+                              const SizedBox(height: AppSizes.xl),
+                              CustomButton(
+                                label: 'Log in',
+                                isLoading: authState.isLoading,
+                                onPressed: authState.isLoading ? null : _submit,
+                              ),
+                              const SizedBox(height: AppSizes.lg),
+
+                              Center(
                                 child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Icon(
-                                      Icons.error_outline,
-                                      size: AppSizes.iconSm,
-                                      color: theme.colorScheme.error,
+                                    Text(
+                                      'Don\'t have an account?',
+                                      style: theme.textTheme.bodyMedium
+                                          ?.copyWith(
+                                            color: theme.colorScheme.onSurface,
+                                          ),
                                     ),
-                                    const SizedBox(width: AppSizes.sm),
-                                    Expanded(
+                                    const SizedBox(width: AppSizes.xs),
+                                    GestureDetector(
+                                      onTap: () => authState.isLoading
+                                          ? null
+                                          : context.go(AppRoutes.register),
                                       child: Text(
-                                        authState.errorMessage!,
-                                        style: theme.textTheme.bodySmall
+                                        'Sign up',
+                                        style: theme.textTheme.bodyMedium
                                             ?.copyWith(
-                                              color: theme.colorScheme.error,
+                                              color: theme.colorScheme.primary,
+                                              fontWeight: FontWeight.bold,
                                             ),
                                       ),
                                     ),
                                   ],
                                 ),
                               ),
+                              const SizedBox(height: AppSizes.xxl),
                             ],
-
-                            const SizedBox(height: AppSizes.xl),
-                            CustomButton(
-                              label: 'Log in',
-                              isLoading: authState.isLoading,
-                              onPressed: authState.isLoading ? null : _submit,
-                            ),
-                            const SizedBox(height: AppSizes.lg),
-
-                            Center(
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    'Don\'t have an account?',
-                                    style: theme.textTheme.bodyMedium?.copyWith(
-                                      color: theme.colorScheme.onSurface,
-                                    ),
-                                  ),
-                                  const SizedBox(width: AppSizes.xs),
-                                  GestureDetector(
-                                    onTap: () => authState.isLoading
-                                        ? null
-                                        : context.go(AppRoutes.register),
-                                    child: Text(
-                                      'Sign up',
-                                      style: theme.textTheme.bodyMedium
-                                          ?.copyWith(
-                                            color: theme.colorScheme.primary,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
+                          ),
                         ),
                       ),
                     ),

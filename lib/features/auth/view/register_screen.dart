@@ -145,173 +145,178 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                   child: GestureDetector(
                     behavior: HitTestBehavior.opaque,
                     onTap: () => FocusScope.of(context).unfocus(),
-                    child: SingleChildScrollView(
-                      keyboardDismissBehavior:
-                          ScrollViewKeyboardDismissBehavior.onDrag,
+                    child: Padding(
                       padding: const EdgeInsets.fromLTRB(
                         AppSizes.lg,
-                        AppSizes.xl,
                         AppSizes.lg,
-                        AppSizes.xxl,
+                        AppSizes.lg,
+                        AppSizes.sm,
                       ),
-                      child: Form(
-                        key: _formKey,
-                        autovalidateMode: AutovalidateMode.onUnfocus,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            Text(
-                              'Create your Account',
-                              style: theme.textTheme.headlineSmall,
-                            ),
-                            const SizedBox(height: AppSizes.xl),
-
-                            CustomTextField(
-                              label: 'Username',
-                              hint: 'John',
-                              controller: _usernameController,
-                              textCapitalization: TextCapitalization.words,
-                              textInputAction: TextInputAction.next,
-                              enabled: !authState.isLoading,
-                              prefixIcon: const Icon(Icons.person_outline),
-                              validator: Validators.username,
-                            ),
-                            const SizedBox(height: AppSizes.md),
-
-                            CustomTextField(
-                              label: 'Phone Number',
-                              hint: 'Enter your phone number',
-                              controller: _phoneController,
-                              keyboardType: TextInputType.phone,
-                              textInputAction: TextInputAction.next,
-                              enabled: !authState.isLoading,
-                              prefixIcon: const Icon(Icons.phone_outlined),
-                              validator: Validators.phoneNumber,
-                            ),
-                            const SizedBox(height: AppSizes.md),
-
-                            CustomTextField(
-                              label: 'Email Address',
-                              hint: 'Enter your email address',
-                              controller: _emailController,
-                              keyboardType: TextInputType.emailAddress,
-                              textInputAction: TextInputAction.next,
-                              enabled: !authState.isLoading,
-                              prefixIcon: const Icon(Icons.email_outlined),
-                              validator: Validators.email,
-                            ),
-                            const SizedBox(height: AppSizes.md),
-
-                            CustomTextField(
-                              label: 'Password',
-                              hint: 'Enter your password',
-                              controller: _passwordController,
-                              textInputAction: TextInputAction.next,
-                              enabled: !authState.isLoading,
-                              obscureText: true,
-                              prefixIcon: const Icon(Icons.lock_outline),
-                              validator: Validators.password,
-                            ),
-
-                            const SizedBox(height: AppSizes.md),
-                            CustomTextField(
-                              label: 'Confirm Password',
-                              hint: 'Re-enter your password',
-                              controller: _confirmPasswordController,
-                              textInputAction: TextInputAction.next,
-                              enabled: !authState.isLoading,
-                              obscureText: true,
-                              prefixIcon: const Icon(Icons.lock_outline),
-                              validator: (value) => Validators.confirmPassword(
-                                value,
-                                _passwordController.text,
+                      child: SingleChildScrollView(
+                        keyboardDismissBehavior:
+                            ScrollViewKeyboardDismissBehavior.onDrag,
+                        child: Form(
+                          key: _formKey,
+                          autovalidateMode: AutovalidateMode.onUnfocus,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              Text(
+                                'Create your Account',
+                                style: theme.textTheme.headlineSmall,
                               ),
-                            ),
-                            const SizedBox(height: AppSizes.md),
+                              const SizedBox(height: AppSizes.xl),
 
-                            CustomTextField(
-                              label: 'Referral Code (Optional)',
-                              hint: 'Enter referral code',
-                              controller: _referralController,
-                              textInputAction: TextInputAction.done,
-                              enabled: !authState.isLoading,
-                              prefixIcon: const Icon(
-                                Icons.card_giftcard_outlined,
+                              CustomTextField(
+                                label: 'Username',
+                                hint: 'John',
+                                controller: _usernameController,
+                                textCapitalization: TextCapitalization.words,
+                                textInputAction: TextInputAction.next,
+                                enabled: !authState.isLoading,
+                                prefixIcon: const Icon(Icons.person_outline),
+                                validator: Validators.username,
                               ),
-                              onSubmitted: (_) => _submit(),
-                              validator: Validators.referralCode,
-                            ),
+                              const SizedBox(height: AppSizes.md),
 
-                            if (authState.errorMessage != null) ...[
-                              const SizedBox(height: AppSizes.sm),
-                              Container(
-                                padding: const EdgeInsets.all(AppSizes.sm),
-                                decoration: BoxDecoration(
-                                  color: theme.colorScheme.error.withValues(
-                                    alpha: 0.08,
+                              CustomTextField(
+                                label: 'Phone Number',
+                                hint: 'Enter your phone number',
+                                controller: _phoneController,
+                                keyboardType: TextInputType.phone,
+                                textInputAction: TextInputAction.next,
+                                enabled: !authState.isLoading,
+                                prefixIcon: const Icon(Icons.phone_outlined),
+                                validator: Validators.phoneNumber,
+                              ),
+                              const SizedBox(height: AppSizes.md),
+
+                              CustomTextField(
+                                label: 'Email Address',
+                                hint: 'Enter your email address',
+                                controller: _emailController,
+                                keyboardType: TextInputType.emailAddress,
+                                textInputAction: TextInputAction.next,
+                                enabled: !authState.isLoading,
+                                prefixIcon: const Icon(Icons.email_outlined),
+                                validator: Validators.email,
+                              ),
+                              const SizedBox(height: AppSizes.md),
+
+                              CustomTextField(
+                                label: 'Password',
+                                hint: 'Enter your password',
+                                controller: _passwordController,
+                                textInputAction: TextInputAction.next,
+                                enabled: !authState.isLoading,
+                                obscureText: true,
+                                prefixIcon: const Icon(Icons.lock_outline),
+                                validator: Validators.password,
+                              ),
+
+                              const SizedBox(height: AppSizes.md),
+                              CustomTextField(
+                                label: 'Confirm Password',
+                                hint: 'Re-enter your password',
+                                controller: _confirmPasswordController,
+                                textInputAction: TextInputAction.next,
+                                enabled: !authState.isLoading,
+                                obscureText: true,
+                                prefixIcon: const Icon(Icons.lock_outline),
+                                validator: (value) =>
+                                    Validators.confirmPassword(
+                                      value,
+                                      _passwordController.text,
+                                    ),
+                              ),
+                              const SizedBox(height: AppSizes.md),
+
+                              CustomTextField(
+                                label: 'Referral Code (Optional)',
+                                hint: 'Enter referral code',
+                                controller: _referralController,
+                                textInputAction: TextInputAction.done,
+                                enabled: !authState.isLoading,
+                                prefixIcon: const Icon(
+                                  Icons.card_giftcard_outlined,
+                                ),
+                                onSubmitted: (_) => _submit(),
+                                validator: Validators.referralCode,
+                              ),
+
+                              if (authState.errorMessage != null) ...[
+                                const SizedBox(height: AppSizes.sm),
+                                Container(
+                                  padding: const EdgeInsets.all(AppSizes.sm),
+                                  decoration: BoxDecoration(
+                                    color: theme.colorScheme.error.withValues(
+                                      alpha: 0.08,
+                                    ),
+                                    borderRadius: BorderRadius.circular(
+                                      AppSizes.radiusSm,
+                                    ),
                                   ),
-                                  borderRadius: BorderRadius.circular(
-                                    AppSizes.radiusSm,
+                                  child: Row(
+                                    children: [
+                                      Icon(
+                                        Icons.error_outline,
+                                        size: AppSizes.iconSm,
+                                        color: theme.colorScheme.error,
+                                      ),
+                                      const SizedBox(width: AppSizes.sm),
+                                      Expanded(
+                                        child: Text(
+                                          authState.errorMessage!,
+                                          style: theme.textTheme.bodySmall
+                                              ?.copyWith(
+                                                color: theme.colorScheme.error,
+                                              ),
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
+                              ],
+
+                              const SizedBox(height: AppSizes.xl),
+                              CustomButton(
+                                label: 'Sign Up',
+                                isLoading: authState.isLoading,
+                                onPressed: authState.isLoading ? null : _submit,
+                              ),
+                              const SizedBox(height: AppSizes.lg),
+
+                              Center(
                                 child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Icon(
-                                      Icons.error_outline,
-                                      size: AppSizes.iconSm,
-                                      color: theme.colorScheme.error,
+                                    Text(
+                                      'Already have an account?',
+                                      style: theme.textTheme.bodyMedium
+                                          ?.copyWith(
+                                            color: theme.colorScheme.onSurface,
+                                          ),
                                     ),
-                                    const SizedBox(width: AppSizes.sm),
-                                    Expanded(
+                                    const SizedBox(width: AppSizes.xs),
+                                    GestureDetector(
+                                      onTap: authState.isLoading
+                                          ? null
+                                          : () => context.go(AppRoutes.login),
                                       child: Text(
-                                        authState.errorMessage!,
-                                        style: theme.textTheme.bodySmall
+                                        'Log in',
+                                        style: theme.textTheme.bodyMedium
                                             ?.copyWith(
-                                              color: theme.colorScheme.error,
+                                              color: theme.colorScheme.primary,
+                                              fontWeight: FontWeight.bold,
                                             ),
                                       ),
                                     ),
                                   ],
                                 ),
                               ),
+                              const SizedBox(height: AppSizes.xxl),
                             ],
-
-                            const SizedBox(height: AppSizes.xl),
-                            CustomButton(
-                              label: 'Sign Up',
-                              isLoading: authState.isLoading,
-                              onPressed: authState.isLoading ? null : _submit,
-                            ),
-                            const SizedBox(height: AppSizes.lg),
-
-                            Center(
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    'Already have an account?',
-                                    style: theme.textTheme.bodyMedium?.copyWith(
-                                      color: theme.colorScheme.onSurface,
-                                    ),
-                                  ),
-                                  const SizedBox(width: AppSizes.xs),
-                                  GestureDetector(
-                                    onTap: authState.isLoading
-                                        ? null
-                                        : () => context.go(AppRoutes.login),
-                                    child: Text(
-                                      'Log in',
-                                      style: theme.textTheme.bodyMedium
-                                          ?.copyWith(
-                                            color: theme.colorScheme.primary,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
+                          ),
                         ),
                       ),
                     ),

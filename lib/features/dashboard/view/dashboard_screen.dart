@@ -27,8 +27,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
         child: RefreshIndicator(
           onRefresh: _onRefresh,
           child: SingleChildScrollView(
-            padding: const EdgeInsets.all(16),
-            physics: const AlwaysScrollableScrollPhysics(),
+            padding: const EdgeInsets.fromLTRB(
+              AppSizes.md,
+              AppSizes.sm,
+              AppSizes.md,
+              AppSizes.sm,
+            ),
             child: Column(
               children: const [
                 DashboardHeader(),

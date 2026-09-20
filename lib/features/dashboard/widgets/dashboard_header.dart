@@ -5,6 +5,7 @@ import 'package:top_pay/core/router/router.dart';
 import 'package:top_pay/features/auth/viewmodel/auth_viewmodel.dart';
 import 'package:top_pay/core/constants/app_sizes.dart';
 import 'package:top_pay/shared/components/profile_avatar.dart';
+import 'package:top_pay/core/utils/formatters.dart';
 
 class DashboardHeader extends ConsumerWidget {
   const DashboardHeader({super.key});
@@ -18,55 +19,45 @@ class DashboardHeader extends ConsumerWidget {
     final textTheme = theme.textTheme;
     final colorScheme = theme.colorScheme;
     final now = DateTime.now();
-    int unreadNotifCount = 2;
+    int unreadNotifCount = 10;
     final displayName = user?.displayName;
     final photoUrl = user?.photoUrl;
 
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
+        GestureDetector(
+          child: ProfileAvatar(photoUrl: photoUrl),
+          onTap: () {
+            context.push(AppRoutes.profile);
+          },
+        ),
+        const SizedBox(width: AppSizes.sm),
         Expanded(
-          child: Row(
-            children: [
-              GestureDetector(
-                child: UserAvatar(photoUrl: photoUrl),
-                onTap: () {
-                  context.push(AppRoutes.profile);
-                },
-              ),
-              const SizedBox(width: 2),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      'Good ${dayText(now)}',
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: textTheme.bodySmall?.copyWith(
-                        color: colorScheme.onSurface,
-                      ),
-                    ),
-                    const SizedBox(height: 2),
-                    Text(
-                      displayName ?? 'User',
-                      style: textTheme.bodyMedium?.copyWith(
-                        color: colorScheme.primary,
-                      ),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ],
+          child: Text.rich(
+            TextSpan(
+              children: [
+                TextSpan(
+                  text: 'Good ${Formatters.dayText(now)}, ',
+                  style: textTheme.titleSmall?.copyWith(
+                    color: colorScheme.onSurfaceVariant,
+                  ),
                 ),
-              ),
-            ],
+                TextSpan(
+                  text: displayName ?? 'Top Payer',
+                  style: textTheme.titleSmall?.copyWith(
+                    color: colorScheme.onSurface,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
         const SizedBox(width: AppSizes.md),
         Stack(
           children: [
             IconButton(
+              padding: EdgeInsets.zero,
               icon: Icon(
                 Icons.notifications,
                 size: 24,
@@ -78,8 +69,8 @@ class DashboardHeader extends ConsumerWidget {
             ),
             if (unreadNotifCount > 0)
               Positioned(
-                top: AppSizes.xs,
-                right: AppSizes.xs,
+                top: 2,
+                right: 2,
                 child: Container(
                   constraints: const BoxConstraints(
                     minHeight: 16,
@@ -105,11 +96,5 @@ class DashboardHeader extends ConsumerWidget {
         ),
       ],
     );
-  }
-
-  String dayText(DateTime time) {
-    if (time.hour < 12) return 'morning';
-    if (time.hour < 16) return 'afternoon';
-    return 'evening';
   }
 }
