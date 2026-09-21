@@ -9,17 +9,6 @@ class Formatters {
     return 'evening';
   }
 
-  static final _currency =
-  NumberFormat.currency(locale: 'en_NG', symbol: '₦', decimalDigits: 2);
-
-  static final _currencyNoDecimals =
-  NumberFormat.currency(locale: 'en_NG', symbol: '₦', decimalDigits: 0);
-
-  static String currency(double amount, {bool decimals = true}) {
-    return decimals ? _currency.format(amount) : _currencyNoDecimals.format(
-        amount);
-  }
-
   static String date(DateTime date) => DateFormat('MMM d, yyyy').format(date);
 
   static String time(DateTime date) => DateFormat('h:mm a').format(date);

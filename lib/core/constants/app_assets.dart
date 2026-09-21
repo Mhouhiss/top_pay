@@ -8,7 +8,7 @@ class AppAssets {
   static const String onboarding2 = 'assets/images/onboarding2.png';
   static const String onboarding3 = 'assets/images/onboarding3.png';
 
-  static const String userAvatar = 'assets/images/user_avatar';
+  static const String profile = 'assets/images/profile.png';
   static const String airtime = 'assets/svg/airtime.svg';
   static const String data = 'assets/svg/data.svg';
   static const String electricity = 'assets/svg/electricity.svg';

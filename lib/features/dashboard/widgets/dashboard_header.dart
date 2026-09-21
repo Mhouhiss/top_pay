@@ -59,7 +59,7 @@ class DashboardHeader extends ConsumerWidget {
             IconButton(
               padding: EdgeInsets.zero,
               icon: Icon(
-                Icons.notifications,
+                Icons.notifications_outlined,
                 size: 24,
                 color: colorScheme.onSurface,
               ),
