@@ -5,6 +5,6 @@ class PromoBanner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text('Promo Banner');
+    return Text('//Promo Banner');
   }
 }
