@@ -4,10 +4,14 @@ import 'package:top_pay/core/theme/app_colors.dart';
 import 'package:top_pay/shared/components/custom_button.dart';
 
 class BalanceCard extends StatefulWidget {
-  final double balance;
-  final double bonus;
+  final String balance;
+  final String bonus;
 
-  const BalanceCard({super.key, this.balance = 20000.437, this.bonus = 300});
+  const BalanceCard({
+    super.key,
+    this.balance = '74,850.50',
+    this.bonus = '300',
+  });
 
   @override
   State<BalanceCard> createState() => _BalanceCardState();
@@ -24,7 +28,10 @@ class _BalanceCardState extends State<BalanceCard> {
 
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.all(AppSizes.lg),
+      padding: const EdgeInsets.symmetric(
+        vertical: AppSizes.md,
+        horizontal: AppSizes.lg,
+      ),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(AppSizes.radiusXl),
         boxShadow: [
@@ -84,7 +91,7 @@ class _BalanceCardState extends State<BalanceCard> {
                       children: [
                         Icon(
                           Icons.account_balance_wallet,
-                          size: 20,
+                          size: 18,
                           color: colorScheme.surface.withValues(alpha: 0.9),
                         ),
                         const SizedBox(width: AppSizes.xs),
@@ -98,11 +105,19 @@ class _BalanceCardState extends State<BalanceCard> {
                       ],
                     ),
                     const Spacer(),
-                    CustomButton(
-                      label: 'Fund Wallet',
-                      leadingIcon: Icons.add,
-                      fullWidth: false,
+                    OutlinedButton.icon(
                       onPressed: () {},
+                      icon: const Icon(Icons.add),
+                      label: Text('Fund Wallet'),
+                      style: OutlinedButton.styleFrom(
+                        padding: EdgeInsets.symmetric(horizontal: 8),
+                        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                        side: BorderSide(color: colorScheme.onPrimary),
+                        foregroundColor: colorScheme.onPrimary,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
                     ),
                   ],
                 ),

@@ -5,6 +5,7 @@ import '../../dashboard/widgets/dashboard_header.dart';
 import '../../dashboard/widgets/balance_card.dart';
 import '../../dashboard/widgets/promo_banner.dart';
 import '../../dashboard/widgets/recent_transactions.dart';
+import '../../dashboard/widgets/services.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -40,6 +41,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 BalanceCard(),
                 SizedBox(height: AppSizes.md),
                 PromoBanner(),
+                SizedBox(height: AppSizes.md),
+                Services(),
                 SizedBox(height: AppSizes.md),
                 RecentTransactions(),
                 SizedBox(height: AppSizes.lg),

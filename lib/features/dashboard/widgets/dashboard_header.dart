@@ -76,7 +76,7 @@ class DashboardHeader extends ConsumerWidget {
                     minHeight: 16,
                     minWidth: 16,
                   ),
-                  padding: const EdgeInsets.all(3),
+                  padding: const EdgeInsets.all(4),
                   decoration: BoxDecoration(
                     color: colorScheme.secondary,
                     shape: BoxShape.circle,
