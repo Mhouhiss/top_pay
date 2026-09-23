@@ -1,19 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:top_pay/core/constants/app_assets.dart';
-import 'package:top_pay/core/theme/app_colors.dart';
 
 class ProfileAvatar extends StatelessWidget {
-  const ProfileAvatar({
-    super.key,
-    this.photoUrl,
-    this.radius = 20.0,
-    this.backgroundColor = AppColors.black,
-  });
+  const ProfileAvatar({super.key, this.photoUrl, this.radius = 20.0});
 
   final String? photoUrl;
   final double radius;
-  final Color backgroundColor;
 
   @override
   Widget build(BuildContext context) {

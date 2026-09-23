@@ -4,7 +4,6 @@ import 'package:go_router/go_router.dart';
 import 'package:top_pay/features/splash/viewmodel/app_viewmodel.dart';
 import 'package:top_pay/core/constants/app_sizes.dart';
 import 'package:top_pay/core/router/router.dart';
-import 'package:top_pay/core/theme/app_colors.dart';
 import 'package:top_pay/features/onboarding/widgets/dot_indicators.dart';
 import 'package:top_pay/shared/components/custom_button.dart';
 import '../../onboarding/widgets/onboarding_page_content.dart';
@@ -23,7 +22,6 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
     final vm = ref.watch(onboardingViewModelProvider);
 
     return Scaffold(
-      backgroundColor: AppColors.white,
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

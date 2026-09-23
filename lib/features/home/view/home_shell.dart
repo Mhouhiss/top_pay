@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:top_pay/core/theme/app_colors.dart';
 import 'package:top_pay/features/dashboard/view/dashboard_screen.dart';
 import 'package:top_pay/features/transactions/view/transactions_screen.dart';
 import 'package:top_pay/features/profile/view/profile_screen.dart';
@@ -53,7 +52,6 @@ class _HomeShellState extends State<HomeShell> {
         _handleBackPress();
       },
       child: Scaffold(
-        backgroundColor: AppColors.white,
         body: IndexedStack(index: _currentIndex, children: _pages),
         bottomNavigationBar: NavigationBar(
           height: 68,
