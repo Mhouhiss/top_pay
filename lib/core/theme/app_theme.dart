@@ -4,17 +4,6 @@ import 'package:flutter/services.dart';
 import 'package:top_pay/core/theme/app_colors.dart';
 import 'package:top_pay/core/theme/app_text_styles.dart';
 
-class AppThemeA {
-  static ThemeData get lightTheme {
-    return ThemeData(
-      useMaterial3: true,
-      brightness: Brightness.light,
-      fontFamily: 'Sora',
-      colorScheme: const ColorScheme.light(primary: AppColors.primary),
-    );
-  }
-}
-
 class AppTheme {
   static ThemeData get lightTheme {
     return ThemeData(
@@ -28,11 +17,10 @@ class AppTheme {
         onSecondary: AppColors.white,
         surface: AppColors.surfaceLight,
         onSurface: AppColors.textPrimaryLight,
-        background: AppColors.backgroundLight,
-        onBackground: AppColors.textPrimaryLight,
         error: AppColors.error,
         onError: AppColors.white,
       ),
+      scaffoldBackgroundColor: AppColors.backgroundLight,
       textTheme: _buildTextTheme(Brightness.light),
       appBarTheme: _buildAppBarTheme(Brightness.light),
       elevatedButtonTheme: _buildElevatedButtonTheme(Brightness.light),
@@ -43,7 +31,6 @@ class AppTheme {
       bottomNavigationBarTheme: _buildBottomNavigationBarTheme(
         Brightness.light,
       ),
-      scaffoldBackgroundColor: AppColors.backgroundLight,
     );
   }
 
@@ -53,17 +40,16 @@ class AppTheme {
       brightness: Brightness.dark,
       fontFamily: 'Sora',
       colorScheme: const ColorScheme.dark(
-        primary: AppColors.primary,
+        primary: AppColors.primaryLight,
         onPrimary: AppColors.white,
-        secondary: AppColors.secondary,
+        secondary: AppColors.secondaryLight,
         onSecondary: AppColors.white,
         surface: AppColors.surfaceDark,
         onSurface: AppColors.textPrimaryDark,
-        background: AppColors.backgroundDark,
-        onBackground: AppColors.textPrimaryDark,
         error: AppColors.error,
         onError: AppColors.white,
       ),
+      scaffoldBackgroundColor: AppColors.backgroundDark,
       textTheme: _buildTextTheme(Brightness.dark),
       appBarTheme: _buildAppBarTheme(Brightness.dark),
       elevatedButtonTheme: _buildElevatedButtonTheme(Brightness.dark),
@@ -72,7 +58,6 @@ class AppTheme {
       inputDecorationTheme: _buildInputDecorationTheme(Brightness.dark),
       cardTheme: _buildCardTheme(Brightness.dark),
       bottomNavigationBarTheme: _buildBottomNavigationBarTheme(Brightness.dark),
-      scaffoldBackgroundColor: AppColors.black,
     );
   }
 
@@ -101,16 +86,18 @@ class AppTheme {
   }
 
   static AppBarTheme _buildAppBarTheme(Brightness brightness) {
+    final isLight = brightness == Brightness.light;
+
     return AppBarTheme(
       elevation: 0,
       centerTitle: true,
-      backgroundColor: brightness == Brightness.light
+      backgroundColor: isLight
           ? AppColors.backgroundLight
-          : AppColors.black,
-      foregroundColor: brightness == Brightness.light
+          : AppColors.backgroundDark,
+      foregroundColor: isLight
           ? AppColors.textPrimaryLight
           : AppColors.textPrimaryDark,
-      systemOverlayStyle: brightness == Brightness.light
+      systemOverlayStyle: isLight
           ? SystemUiOverlayStyle.dark
           : SystemUiOverlayStyle.light,
       titleTextStyle: AppTextStyles.titleLarge.copyWith(
@@ -126,12 +113,13 @@ class AppTheme {
   ) {
     return ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
-        backgroundColor: AppColors.primary,
+        backgroundColor: brightness == Brightness.light
+            ? AppColors.primary
+            : AppColors.primaryLight,
         foregroundColor: AppColors.white,
         textStyle: AppTextStyles.button,
-        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-        elevation: 2,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        elevation: 0,
       ),
     );
   }
@@ -139,13 +127,16 @@ class AppTheme {
   static OutlinedButtonThemeData _buildOutlinedButtonTheme(
     Brightness brightness,
   ) {
+    final primary = brightness == Brightness.light
+        ? AppColors.primary
+        : AppColors.primaryLight;
+
     return OutlinedButtonThemeData(
       style: OutlinedButton.styleFrom(
-        foregroundColor: AppColors.primary,
+        foregroundColor: primary,
         textStyle: AppTextStyles.button,
-        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-        side: const BorderSide(color: AppColors.primary, width: 1),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        side: BorderSide(color: primary),
       ),
     );
   }
@@ -153,7 +144,9 @@ class AppTheme {
   static TextButtonThemeData _buildTextButtonTheme(Brightness brightness) {
     return TextButtonThemeData(
       style: TextButton.styleFrom(
-        foregroundColor: AppColors.primary,
+        foregroundColor: brightness == Brightness.light
+            ? AppColors.primary
+            : AppColors.primaryLight,
         textStyle: AppTextStyles.button,
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
@@ -164,45 +157,45 @@ class AppTheme {
   static InputDecorationTheme _buildInputDecorationTheme(
     Brightness brightness,
   ) {
+    final isLight = brightness == Brightness.light;
+
     return InputDecorationTheme(
       filled: true,
-      fillColor: brightness == Brightness.light
-          ? AppColors.grey50
-          : AppColors.grey800,
+      fillColor: isLight ? AppColors.surfaceLight : AppColors.surfaceDark,
+      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(12),
         borderSide: BorderSide(
-          color: brightness == Brightness.light
-              ? AppColors.grey300
-              : AppColors.grey600,
+          color: isLight ? AppColors.borderLight : AppColors.borderDark,
         ),
       ),
       enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(12),
         borderSide: BorderSide(
-          color: brightness == Brightness.light
-              ? AppColors.grey300
-              : AppColors.grey600,
+          color: isLight ? AppColors.borderLight : AppColors.borderDark,
         ),
       ),
       focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(8),
-        borderSide: const BorderSide(color: AppColors.primary, width: 2),
+        borderRadius: BorderRadius.circular(12),
+        borderSide: BorderSide(
+          color: isLight ? AppColors.primary : AppColors.primaryLight,
+          width: 1.5,
+        ),
       ),
       errorBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(8),
-        borderSide: const BorderSide(color: AppColors.error, width: 1),
+        borderRadius: BorderRadius.circular(12),
+        borderSide: const BorderSide(color: AppColors.error),
       ),
-      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
     );
   }
 
   static CardThemeData _buildCardTheme(Brightness brightness) {
     return CardThemeData(
-      elevation: 2,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      elevation: 0,
+      margin: EdgeInsets.zero,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       color: brightness == Brightness.light
-          ? AppColors.white
+          ? AppColors.surfaceLight
           : AppColors.surfaceDark,
     );
   }
@@ -210,14 +203,14 @@ class AppTheme {
   static BottomNavigationBarThemeData _buildBottomNavigationBarTheme(
     Brightness brightness,
   ) {
+    final isLight = brightness == Brightness.light;
+
     return BottomNavigationBarThemeData(
-      backgroundColor: brightness == Brightness.light
-          ? AppColors.white
-          : AppColors.surfaceDark,
-      selectedItemColor: AppColors.primary,
-      unselectedItemColor: brightness == Brightness.light
-          ? AppColors.grey500
-          : AppColors.grey400,
+      backgroundColor: isLight ? AppColors.surfaceLight : AppColors.surfaceDark,
+      selectedItemColor: isLight ? AppColors.primary : AppColors.primaryLight,
+      unselectedItemColor: isLight
+          ? AppColors.textSecondaryLight
+          : AppColors.textSecondaryDark,
       type: BottomNavigationBarType.fixed,
       elevation: 8,
     );

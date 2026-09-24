@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 
 class AppColors {
   // Primary Colors
-  static const Color primary = Color(0xFF0A52E1);
-  static const Color primaryLight = Color(0xFF3B77F4);
-  static const Color primaryDark = Color(0xFF0638A0);
+  static const Color primary = Color(0xFF112B3C);
+  static const Color primaryLight = Color(0xFF205375);
+  static const Color primaryDark = Color(0xFF0A1B26);
 
   // Secondary Colors
-  static const Color secondary = Color(0xFFFF7A1E);
-  static const Color secondaryLight = Color(0xFFFFA35C);
-  static const Color secondaryDark = Color(0xFFC65600);
+  static const Color secondary = Color(0xFFF66B0E);
+  static const Color secondaryLight = Color(0xFFFF8838);
+  static const Color secondaryDark = Color(0xFFC45000);
 
   // Neutral Colors
   static const Color black = Color(0xFF000000);
@@ -30,23 +30,14 @@ class AppColors {
   static const Color success = Color(0xFF10B981);
   static const Color warning = Color(0xFFF59E0B);
   static const Color error = Color(0xFFff383c);
-  static const Color info = Color(0xFF3B82F6);
+  static const Color info = Color(0xFF205375);
 
   // Background Colors
-  static const Color backgroundLight = Color(0xFFFFFFFF);
-  static const Color backgroundLightGrey = Color(0xFFD9D9D9);
-  static const Color backgroundDark = Color(0xFF000000);
-  static const Color backgroundGrey = Color(0xFF999999);
-  static const Color backgroundWhite = Color(0xFFE6E6E6);
-  static const Color connectedBackground = Color(0xFFE8F5E8);
+  static const Color backgroundLight = Color(0xFFEFEFEF);
+  static const Color backgroundDark = Color(0xFF0B141B);
 
   static const Color surfaceLight = Color(0xFFF8FAFC);
   static const Color surfaceDark = Color(0xFF1E293B);
-  static const Color inputBackground = Color(0xFF232323);
-  static const Color hintText = Color(0xFF999999);
-  static const Color darkGrey = Color(0xFF232323);
-  static const Color tileGrey = Color(0xFF595959);
-  static const Color textGrey = Color(0xFF0E0E0F);
 
   // Borders / Dividers
   static const Color borderLight = Color(0xFFE5E7EB);
@@ -56,12 +47,11 @@ class AppColors {
   static const Color dividerDark = Color(0xFF2C2C2C);
 
   // Text Colors
-  static const Color textPrimaryLight = Color(0xFF1F2937);
-  static const Color textSecondaryLight = Color(0xFF6B7280);
+  static const Color textPrimaryLight = Color(0xFF112B3C);
+  static const Color textSecondaryLight = Color(0xFF205375);
+
   static const Color textPrimaryDark = Color(0xFFF9FAFB);
   static const Color textSecondaryDark = Color(0xFF9CA3AF);
-  static const Color lightGrey = Color(0xFFE6E6E6);
-  static const Color lightGreyish = Color(0xFF444444);
 
   // Network provider brand colors
   static const Color mtn = Color(0xFFFFCB05);
@@ -75,7 +65,7 @@ class AppColors {
 
   // Gradients
   static const LinearGradient primaryGradient = LinearGradient(
-    colors: [primary, secondary],
+    colors: [primary, primaryLight],
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
   );
