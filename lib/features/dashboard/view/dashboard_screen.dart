@@ -41,7 +41,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 BalanceCard(),
                 SizedBox(height: AppSizes.md),
                 PromoBanner(),
-                SizedBox(height: AppSizes.md),
+                SizedBox(height: AppSizes.lg),
                 Services(),
                 SizedBox(height: AppSizes.md),
                 RecentTransactions(),

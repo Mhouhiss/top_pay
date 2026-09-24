@@ -5,6 +5,11 @@ class Services extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text('//Services');
+    return Container(decoration: BoxDecoration(), child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('Services'),
+      ],
+    ));
   }
 }

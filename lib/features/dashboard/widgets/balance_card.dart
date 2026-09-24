@@ -55,7 +55,7 @@ class _BalanceCardState extends State<BalanceCard> {
                   fontWeight: FontWeight.w500,
                 ),
               ),
-              const SizedBox(width: AppSizes.xs),
+              const SizedBox(width: AppSizes.sm),
               GestureDetector(
                 onTap: () {
                   setState(() {
