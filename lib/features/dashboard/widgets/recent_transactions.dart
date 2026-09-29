@@ -6,21 +6,29 @@ class RecentTransactions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(),
-      child: Column(
-        children: [
-          Row(
-            children: [
-              Text('Recent Transactions'),
-              const Spacer(),
-              GestureDetector(child: Text('See all')),
-            ],
-          ),
-          const SizedBox(height: AppSizes.sm),
-          ListTile(),
-        ],
-      ),
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+    final textTheme = theme.textTheme;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Text(
+              'Recent Transactions',
+              style: textTheme.titleMedium?.copyWith(
+                fontWeight: FontWeight.w600,
+                color: colorScheme.primary,
+              ),
+            ),
+            const Spacer(),
+            GestureDetector(child: Text('See all')),
+          ],
+        ),
+        const SizedBox(height: AppSizes.sm),
+        ListTile(),
+      ],
     );
   }
 }
