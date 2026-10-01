@@ -1,8 +1,102 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:top_pay/core/constants/app_sizes.dart';
+import 'package:top_pay/core/router/router.dart';
+import 'package:top_pay/features/transactions/widgets/transaction_tile.dart';
+import 'package:top_pay/shared/components/shimmer.dart';
+import 'package:top_pay/features/transactions/viewmodel/transactions_viewmodel.dart';
 
-class RecentTransactions extends StatelessWidget {
+class RecentTransactions extends ConsumerWidget {
   const RecentTransactions({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+    final textTheme = theme.textTheme;
+
+    final state = ref.watch(transactionViewModelProvider);
+    final items = ref.watch(recentTransactionsProvider);
+
+    return Container(
+      padding: const EdgeInsets.all(AppSizes.md),
+      decoration: BoxDecoration(
+        color: colorScheme.surface,
+        borderRadius: BorderRadius.circular(AppSizes.radiusMd),
+        border: Border.all(color: colorScheme.outlineVariant),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Text(
+                'Recent Transactions',
+                style: textTheme.titleMedium?.copyWith(
+                  fontWeight: FontWeight.w600,
+                  color: colorScheme.primary,
+                ),
+              ),
+              const Spacer(),
+              if (items.isNotEmpty)
+                GestureDetector(
+                  onTap: () {
+                    context.push(AppRoutes.transactions);
+                  },
+                  child: Row(
+                    children: [
+                      Text(
+                        'View all',
+                        style: textTheme.bodyMedium?.copyWith(
+                          color: colorScheme.onSurfaceVariant,
+                        ),
+                      ),
+                      const SizedBox(width: AppSizes.xs),
+                      Icon(
+                        Icons.chevron_right,
+                        size: 18,
+                        color: colorScheme.onSurfaceVariant,
+                      ),
+                    ],
+                  ),
+                ),
+            ],
+          ),
+          const SizedBox(height: AppSizes.md),
+          if (state.isLoading && items.isEmpty)
+            Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: AppSizes.md,
+                vertical: AppSizes.md,
+              ),
+              child: TransactionListShimmer(itemCount: 3),
+            )
+          else if (items.isEmpty)
+            _EmptyView()
+          else
+            ListView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: items.length,
+              itemBuilder: (context, index) {
+                final item = items[index];
+                return Padding(
+                  padding: EdgeInsets.only(
+                    bottom: index == items.length - 1 ? 0 : AppSizes.sm,
+                  ),
+                  child: TransactionTile(item: item),
+                );
+              },
+            ),
+        ],
+      ),
+    );
+  }
+}
+
+class _EmptyView extends StatelessWidget {
+  const _EmptyView();
 
   @override
   Widget build(BuildContext context) {
@@ -10,25 +104,26 @@ class RecentTransactions extends StatelessWidget {
     final colorScheme = theme.colorScheme;
     final textTheme = theme.textTheme;
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          children: [
-            Text(
-              'Recent Transactions',
-              style: textTheme.titleMedium?.copyWith(
-                fontWeight: FontWeight.w600,
-                color: colorScheme.primary,
-              ),
+    return Padding(
+      padding: const EdgeInsets.all(AppSizes.lg),
+      child: Column(
+        children: [
+          Icon(
+            Icons.receipt_long_outlined,
+            size: AppSizes.iconLg,
+            color: colorScheme.outline,
+          ),
+          const SizedBox(height: AppSizes.sm),
+          Text(
+            'No recent transactions',
+            style: textTheme.bodySmall?.copyWith(
+              color: colorScheme.onSurfaceVariant,
+              fontWeight: FontWeight.w500,
             ),
-            const Spacer(),
-            GestureDetector(child: Text('See all')),
-          ],
-        ),
-        const SizedBox(height: AppSizes.sm),
-        ListTile(),
-      ],
+            textAlign: TextAlign.center,
+          ),
+        ],
+      ),
     );
   }
 }
