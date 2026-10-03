@@ -19,7 +19,7 @@ class TransactionTile extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: AppSizes.xs),
+        padding: const EdgeInsets.all(AppSizes.xs),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
