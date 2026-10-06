@@ -9,21 +9,22 @@ class Formatters {
     return 'evening';
   }
 
-  static String date(DateTime date) => DateFormat('MMM d, yyyy').format(date);
+  static String dateTime(DateTime timestamp) {
+    final hour = timestamp.hour % 12 == 0 ? 12 : timestamp.hour % 12;
+    final minute = timestamp.minute.toString().padLeft(2, '0');
+    final period = timestamp.hour >= 12 ? 'PM' : 'AM';
 
-  static String time(DateTime date) => DateFormat('h:mm a').format(date);
-
-  static String dateTime(DateTime date) =>
-      DateFormat('MMM d, yyyy • h:mm a').format(date);
-
-  static String relative(DateTime date) {
-    final diff = DateTime.now().difference(date);
-    if (diff.inMinutes < 1) return 'Just now';
-    if (diff.inMinutes < 60) return '${diff.inMinutes}m ago';
-    if (diff.inHours < 24) return '${diff.inHours}h ago';
-    if (diff.inDays < 7) return '${diff.inDays}d ago';
-    return date_(date);
+    return '${timestamp.day}/${timestamp.month}/${timestamp.year} '
+        '$hour:$minute $period';
   }
+
+  static String amount(double amount) {
+    final sign = amount >= 0 ? '+' : '-';
+    final value = amount.abs().toStringAsFixed(2);
+    return '$sign₦$value';
+  }
+
+  static String date(DateTime date) => DateFormat('MMM d, yyyy').format(date);
 
   static String date_(DateTime date) => DateFormat('MMM d').format(date);
 
