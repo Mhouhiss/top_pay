@@ -3,20 +3,31 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:top_pay/core/constants/app_sizes.dart';
 import 'package:top_pay/core/router/router.dart';
-import 'package:top_pay/features/transactions/widgets/transaction_tile.dart';
+import 'package:top_pay/features/transactions_history/widgets/transaction_tile.dart';
 import 'package:top_pay/shared/components/shimmer.dart';
-import 'package:top_pay/features/transactions/viewmodel/transactions_viewmodel.dart';
+import 'package:top_pay/features/transactions_history/viewmodel/transactions_viewmodel.dart';
 
-class RecentTransactions extends ConsumerWidget {
+class RecentTransactions extends ConsumerStatefulWidget {
   const RecentTransactions({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<RecentTransactions> createState() => _RecentTransactionsState();
+}
+
+class _RecentTransactionsState extends ConsumerState<RecentTransactions> {
+  @override
+  void initState() {
+    super.initState();
+    ref.read(transactionHistoryViewModelProvider.notifier).loadTransactions();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
     final textTheme = theme.textTheme;
 
-    final state = ref.watch(transactionViewModelProvider);
+    final state = ref.watch(transactionHistoryViewModelProvider);
     final items = ref.watch(recentTransactionsProvider);
 
     return Container(
@@ -111,11 +122,11 @@ class _EmptyView extends StatelessWidget {
           Icon(
             Icons.receipt_long_outlined,
             size: AppSizes.iconLg,
-            color: colorScheme.outline,
+            color: colorScheme.onSurfaceVariant,
           ),
           const SizedBox(height: AppSizes.sm),
           Text(
-            'No recent transactions',
+            'No recent transactions_history',
             style: textTheme.bodySmall?.copyWith(
               color: colorScheme.onSurfaceVariant,
               fontWeight: FontWeight.w500,

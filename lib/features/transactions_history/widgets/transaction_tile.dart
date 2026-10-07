@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:top_pay/core/constants/app_sizes.dart';
 import 'package:top_pay/core/utils/formatters.dart';
-import '../../transactions/model/transaction_model.dart';
+import '../../transactions_history/model/transaction_model.dart';
 
 class TransactionTile extends StatelessWidget {
-  final TransactionItem item;
+  final TransactionModel item;
   final VoidCallback? onTap;
 
   const TransactionTile({super.key, required this.item, this.onTap});
@@ -31,7 +31,7 @@ class TransactionTile extends StatelessWidget {
                 borderRadius: BorderRadius.circular(AppSizes.radiusSm),
               ),
               child: Icon(
-                item.icon,
+                _transactionIcon(item),
                 size: AppSizes.iconMd,
                 color: colorScheme.onPrimaryContainer,
               ),
@@ -42,7 +42,7 @@ class TransactionTile extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    item.title,
+                    item.displayTitle,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: textTheme.bodyMedium?.copyWith(
@@ -83,7 +83,7 @@ class TransactionTile extends StatelessWidget {
                 ),
                 const SizedBox(height: AppSizes.xs),
                 Text(
-                  _statusLabel,
+                  item.statusLabel,
                   style: textTheme.labelSmall?.copyWith(
                     color: statusColor,
                     fontWeight: FontWeight.w600,
@@ -103,19 +103,33 @@ class TransactionTile extends StatelessWidget {
         return colorScheme.primary;
       case TransactionStatus.pending:
         return colorScheme.secondary;
+      case TransactionStatus.reversed:
+        return colorScheme.tertiary;
       case TransactionStatus.failed:
         return colorScheme.error;
     }
   }
 
-  String get _statusLabel {
-    switch (item.status) {
-      case TransactionStatus.successful:
-        return 'Successful';
-      case TransactionStatus.pending:
-        return 'Pending';
-      case TransactionStatus.failed:
-        return 'Failed';
+  IconData _transactionIcon(TransactionModel item) {
+    switch (item.type.toLowerCase()) {
+      case 'airtime':
+        return Icons.phone_android_outlined;
+      case 'data':
+        return Icons.wifi_outlined;
+      case 'cableTv':
+        return Icons.live_tv_outlined;
+      case 'electricity':
+        return Icons.lightbulb_outline_rounded;
+      case 'education':
+        return Icons.school_outlined;
+      case 'betting':
+        return Icons.sports_soccer_outlined;
+      case 'funding':
+        return Icons.account_balance_wallet_outlined;
+      case 'card':
+        return Icons.credit_card_outlined;
+      default:
+        return Icons.receipt_long_outlined;
     }
   }
 }

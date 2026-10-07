@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
-
-enum TransactionStatus { successful, pending, failed }
+enum TransactionStatus { successful, pending, reversed, failed }
 
 class TransactionModel {
   const TransactionModel({
@@ -30,6 +28,8 @@ class TransactionModel {
   bool get isSuccessful => status == TransactionStatus.successful;
 
   bool get isPending => status == TransactionStatus.pending;
+
+  bool get isReversed => status == TransactionStatus.reversed;
 
   bool get isFailed => status == TransactionStatus.failed;
 
@@ -62,24 +62,40 @@ class TransactionModel {
       'bundleCode': bundleCode,
     };
   }
-}
 
-class TransactionItem {
-  const TransactionItem({
-    required this.id,
-    required this.title,
-    required this.description,
-    required this.amount,
-    required this.createdAt,
-    required this.icon,
-    required this.status,
-  });
+  String get statusLabel {
+    switch (status) {
+      case TransactionStatus.successful:
+        return 'Successful';
+      case TransactionStatus.pending:
+        return 'Pending';
+      case TransactionStatus.reversed:
+        return 'Reversed';
+      case TransactionStatus.failed:
+        return 'Failed';
+    }
+  }
 
-  final String id;
-  final String title;
-  final String description;
-  final double amount;
-  final DateTime createdAt;
-  final IconData icon;
-  final TransactionStatus status;
+  String get displayTitle {
+    switch (type.toLowerCase()) {
+      case 'airtime':
+        return 'Airtime Purchase';
+      case 'data':
+        return 'Data Purchase';
+      case 'cabletv':
+        return 'Cable TV';
+      case 'electricity':
+        return 'Electricity Bill';
+      case 'education':
+        return 'Education Payment';
+      case 'betting':
+        return 'Betting Payment';
+      case 'funding':
+        return 'Wallet Funding';
+      case 'card':
+        return 'Card Payment';
+      default:
+        return description;
+    }
+  }
 }
