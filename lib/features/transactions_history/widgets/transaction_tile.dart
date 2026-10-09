@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:top_pay/core/constants/app_sizes.dart';
+import 'package:top_pay/core/theme/app_colors.dart';
 import 'package:top_pay/core/utils/formatters.dart';
 import '../../transactions_history/model/transaction_model.dart';
 
@@ -24,15 +25,15 @@ class TransactionTile extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
-              width: 42,
-              height: 42,
+              width: 40,
+              height: 40,
               decoration: BoxDecoration(
                 color: colorScheme.primaryContainer,
-                borderRadius: BorderRadius.circular(AppSizes.radiusSm),
+                shape: BoxShape.circle,
               ),
               child: Icon(
                 _transactionIcon(item),
-                size: AppSizes.iconMd,
+                size: AppSizes.iconSm,
                 color: colorScheme.onPrimaryContainer,
               ),
             ),
@@ -45,7 +46,7 @@ class TransactionTile extends StatelessWidget {
                     item.displayTitle,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: textTheme.bodyMedium?.copyWith(
+                    style: textTheme.titleMedium?.copyWith(
                       fontWeight: FontWeight.w600,
                       color: colorScheme.onSurface,
                     ),
@@ -100,13 +101,13 @@ class TransactionTile extends StatelessWidget {
   Color _statusColor(ColorScheme colorScheme) {
     switch (item.status) {
       case TransactionStatus.successful:
-        return colorScheme.primary;
+        return AppColors.success;
       case TransactionStatus.pending:
-        return colorScheme.secondary;
+        return AppColors.warning;
       case TransactionStatus.reversed:
-        return colorScheme.tertiary;
+        return AppColors.warning;
       case TransactionStatus.failed:
-        return colorScheme.error;
+        return AppColors.error;
     }
   }
 
@@ -116,7 +117,7 @@ class TransactionTile extends StatelessWidget {
         return Icons.phone_android_outlined;
       case 'data':
         return Icons.wifi_outlined;
-      case 'cableTv':
+      case 'cabletv':
         return Icons.live_tv_outlined;
       case 'electricity':
         return Icons.lightbulb_outline_rounded;

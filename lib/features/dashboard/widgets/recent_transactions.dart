@@ -16,12 +16,6 @@ class RecentTransactions extends ConsumerStatefulWidget {
 
 class _RecentTransactionsState extends ConsumerState<RecentTransactions> {
   @override
-  void initState() {
-    super.initState();
-    ref.read(transactionHistoryViewModelProvider.notifier).loadTransactions();
-  }
-
-  @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
@@ -30,78 +24,70 @@ class _RecentTransactionsState extends ConsumerState<RecentTransactions> {
     final state = ref.watch(transactionHistoryViewModelProvider);
     final items = ref.watch(recentTransactionsProvider);
 
-    return Container(
-      padding: const EdgeInsets.all(AppSizes.md),
-      decoration: BoxDecoration(
-        color: colorScheme.surface,
-        borderRadius: BorderRadius.circular(AppSizes.radiusMd),
-        border: Border.all(color: colorScheme.outlineVariant),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Text(
-                'Recent Transactions',
-                style: textTheme.titleMedium?.copyWith(
-                  fontWeight: FontWeight.w600,
-                  color: colorScheme.primary,
-                ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Text(
+              'Recent Transactions',
+              style: textTheme.titleMedium?.copyWith(
+                fontWeight: FontWeight.w600,
+                color: colorScheme.onSurface,
               ),
-              const Spacer(),
-              if (items.isNotEmpty)
-                GestureDetector(
-                  onTap: () {
-                    context.push(AppRoutes.transactions);
-                  },
-                  child: Row(
-                    children: [
-                      Text(
-                        'View all',
-                        style: textTheme.bodyMedium?.copyWith(
-                          color: colorScheme.onSurfaceVariant,
-                        ),
-                      ),
-                      const SizedBox(width: AppSizes.xs),
-                      Icon(
-                        Icons.chevron_right,
-                        size: 18,
-                        color: colorScheme.onSurfaceVariant,
-                      ),
-                    ],
-                  ),
-                ),
-            ],
-          ),
-          const SizedBox(height: AppSizes.md),
-          if (state.isLoading && items.isEmpty)
-            Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: AppSizes.md,
-                vertical: AppSizes.md,
-              ),
-              child: TransactionListShimmer(itemCount: 3),
-            )
-          else if (items.isEmpty)
-            _EmptyView()
-          else
-            ListView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: items.length,
-              itemBuilder: (context, index) {
-                final item = items[index];
-                return Padding(
-                  padding: EdgeInsets.only(
-                    bottom: index == items.length - 1 ? 0 : AppSizes.sm,
-                  ),
-                  child: TransactionTile(item: item),
-                );
-              },
             ),
-        ],
-      ),
+            const Spacer(),
+            if (items.isNotEmpty)
+              GestureDetector(
+                onTap: () {
+                  context.push(AppRoutes.transactions);
+                },
+                child: Row(
+                  children: [
+                    Text(
+                      'View all',
+                      style: textTheme.bodyMedium?.copyWith(
+                        color: colorScheme.primary,
+                      ),
+                    ),
+                    const SizedBox(width: AppSizes.xs),
+                    Icon(
+                      Icons.chevron_right,
+                      size: 18,
+                      color: colorScheme.onSurfaceVariant,
+                    ),
+                  ],
+                ),
+              ),
+          ],
+        ),
+        const SizedBox(height: AppSizes.md),
+        if (state.isLoading && items.isEmpty)
+          Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: AppSizes.md,
+              vertical: AppSizes.md,
+            ),
+            child: TransactionListShimmer(itemCount: 3),
+          )
+        else if (items.isEmpty)
+          _EmptyView()
+        else
+          ListView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: items.length,
+            itemBuilder: (context, index) {
+              final item = items[index];
+              return Padding(
+                padding: EdgeInsets.only(
+                  bottom: index == items.length - 1 ? 0 : AppSizes.sm,
+                ),
+                child: TransactionTile(item: item),
+              );
+            },
+          ),
+      ],
     );
   }
 }
