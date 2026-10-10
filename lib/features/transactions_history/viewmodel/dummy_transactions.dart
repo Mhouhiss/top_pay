@@ -12,7 +12,7 @@ class DummyTransactions {
       },
       {
         'id': 'txn_002',
-        'description': 'MTN Airtime',
+        'description': 'MTN Airtime - 08012345678',
         'amount': 700.00,
         'createdAt': '2026-10-06T14:32:00.000Z',
         'status': 'successful',
@@ -21,19 +21,30 @@ class DummyTransactions {
         'phoneNumber': '08012345678',
       },
       {
+        'id': 'txn_046',
+        'description': 'MTN Data - 2GB',
+        'amount': 600.00,
+        'createdAt': '2026-10-06T11:20:00.000Z',
+        'status': 'successful',
+        'type': 'data',
+        'reference': 'TP-20261006-046',
+        'phoneNumber': '08012345678',
+        'bundleCode': 'MTN-2GB',
+      },
+      {
         'id': 'txn_003',
-        'description': 'MTN 2GB Data',
+        'description': 'MTN Data - 2GB',
         'amount': 600.00,
         'createdAt': '2026-10-06T11:18:00.000Z',
         'status': 'reversed',
         'type': 'data',
         'reference': 'TP-20261006-003',
         'phoneNumber': '08012345678',
-        'bundleCode': 'MTN-10GB',
+        'bundleCode': 'MTN-2GB',
       },
       {
         'id': 'txn_004',
-        'description': 'DSTV Subscription',
+        'description': 'DStv Compact Subscription',
         'amount': 18500.00,
         'createdAt': '2026-10-06T08:45:00.000Z',
         'status': 'successful',
@@ -42,7 +53,7 @@ class DummyTransactions {
       },
       {
         'id': 'txn_005',
-        'description': 'IKEDC Electricity',
+        'description': 'IKEDC Electricity Bill',
         'amount': 10000.00,
         'createdAt': '2026-10-05T19:21:00.000Z',
         'status': 'pending',
@@ -51,7 +62,7 @@ class DummyTransactions {
       },
       {
         'id': 'txn_006',
-        'description': 'Airtel Airtime',
+        'description': 'Airtel Airtime - 08123456789',
         'amount': 1000.00,
         'createdAt': '2026-10-05T15:12:00.000Z',
         'status': 'failed',
@@ -61,7 +72,7 @@ class DummyTransactions {
       },
       {
         'id': 'txn_007',
-        'description': 'Glo 5GB Data',
+        'description': 'Glo Data - 5GB',
         'amount': 2000.00,
         'createdAt': '2026-10-05T10:06:00.000Z',
         'status': 'successful',
@@ -72,7 +83,7 @@ class DummyTransactions {
       },
       {
         'id': 'txn_008',
-        'description': 'MTN Airtime',
+        'description': 'MTN Airtime - 08012345678',
         'amount': 5000.00,
         'createdAt': '2026-10-04T18:42:00.000Z',
         'status': 'successful',
@@ -82,7 +93,7 @@ class DummyTransactions {
       },
       {
         'id': 'txn_009',
-        'description': 'Startimes Subscription',
+        'description': 'StarTimes Subscription',
         'amount': 5200.00,
         'createdAt': '2026-10-04T13:25:00.000Z',
         'status': 'successful',
@@ -91,7 +102,7 @@ class DummyTransactions {
       },
       {
         'id': 'txn_010',
-        'description': 'Airtel 3GB Data',
+        'description': 'Airtel Data - 3GB',
         'amount': 1500.00,
         'createdAt': '2026-10-04T09:17:00.000Z',
         'status': 'successful',
@@ -102,7 +113,7 @@ class DummyTransactions {
       },
       {
         'id': 'txn_011',
-        'description': 'Eko Electricity',
+        'description': 'Eko Electricity Bill',
         'amount': 7500.00,
         'createdAt': '2026-10-03T20:15:00.000Z',
         'status': 'successful',
@@ -111,7 +122,7 @@ class DummyTransactions {
       },
       {
         'id': 'txn_012',
-        'description': '9mobile Airtime',
+        'description': '9mobile Airtime - 09087654321',
         'amount': 1500.00,
         'createdAt': '2026-10-03T16:33:00.000Z',
         'status': 'failed',
@@ -121,7 +132,7 @@ class DummyTransactions {
       },
       {
         'id': 'txn_013',
-        'description': 'MTN 20GB Data',
+        'description': 'MTN Data - 20GB',
         'amount': 7000.00,
         'createdAt': '2026-10-03T12:08:00.000Z',
         'status': 'successful',
@@ -132,7 +143,7 @@ class DummyTransactions {
       },
       {
         'id': 'txn_014',
-        'description': 'DSTV Subscription',
+        'description': 'DStv Premium Subscription',
         'amount': 24500.00,
         'createdAt': '2026-10-02T18:50:00.000Z',
         'status': 'successful',
@@ -141,7 +152,7 @@ class DummyTransactions {
       },
       {
         'id': 'txn_015',
-        'description': 'Glo Airtime',
+        'description': 'Glo Airtime - 08098765432',
         'amount': 2000.00,
         'createdAt': '2026-10-02T14:22:00.000Z',
         'status': 'successful',
@@ -151,7 +162,7 @@ class DummyTransactions {
       },
       {
         'id': 'txn_016',
-        'description': 'AEDC Electricity',
+        'description': 'AEDC Electricity Bill',
         'amount': 12500.00,
         'createdAt': '2026-10-02T09:41:00.000Z',
         'status': 'pending',
@@ -160,7 +171,7 @@ class DummyTransactions {
       },
       {
         'id': 'txn_017',
-        'description': 'MTN 5GB Data',
+        'description': 'MTN Data - 5GB',
         'amount': 2500.00,
         'createdAt': '2026-10-01T17:36:00.000Z',
         'status': 'successful',
@@ -171,7 +182,7 @@ class DummyTransactions {
       },
       {
         'id': 'txn_018',
-        'description': 'Airtel Airtime',
+        'description': 'Airtel Airtime - 08123456789',
         'amount': 3000.00,
         'createdAt': '2026-10-01T12:14:00.000Z',
         'status': 'successful',
@@ -181,7 +192,7 @@ class DummyTransactions {
       },
       {
         'id': 'txn_019',
-        'description': 'Startimes Subscription',
+        'description': 'StarTimes Subscription',
         'amount': 4200.00,
         'createdAt': '2026-09-30T19:05:00.000Z',
         'status': 'successful',
@@ -190,7 +201,7 @@ class DummyTransactions {
       },
       {
         'id': 'txn_020',
-        'description': 'IKEDC Electricity',
+        'description': 'IKEDC Electricity Bill',
         'amount': 5000.00,
         'createdAt': '2026-09-30T14:38:00.000Z',
         'status': 'failed',
@@ -199,7 +210,7 @@ class DummyTransactions {
       },
       {
         'id': 'txn_021',
-        'description': 'Glo 10GB Data',
+        'description': 'Glo Data - 10GB',
         'amount': 3500.00,
         'createdAt': '2026-09-30T08:52:00.000Z',
         'status': 'successful',
@@ -210,7 +221,7 @@ class DummyTransactions {
       },
       {
         'id': 'txn_022',
-        'description': 'MTN Airtime',
+        'description': 'MTN Airtime - 08012345678',
         'amount': 1000.00,
         'createdAt': '2026-09-29T16:27:00.000Z',
         'status': 'successful',
@@ -220,7 +231,7 @@ class DummyTransactions {
       },
       {
         'id': 'txn_023',
-        'description': 'DSTV Subscription',
+        'description': 'DStv Compact Subscription',
         'amount': 18500.00,
         'createdAt': '2026-09-29T11:43:00.000Z',
         'status': 'reversed',
@@ -229,7 +240,7 @@ class DummyTransactions {
       },
       {
         'id': 'txn_024',
-        'description': '9mobile 4GB Data',
+        'description': '9mobile Data - 4GB',
         'amount': 1800.00,
         'createdAt': '2026-09-28T18:16:00.000Z',
         'status': 'successful',
@@ -240,7 +251,7 @@ class DummyTransactions {
       },
       {
         'id': 'txn_025',
-        'description': 'Eko Electricity',
+        'description': 'Eko Electricity Bill',
         'amount': 8500.00,
         'createdAt': '2026-09-28T10:31:00.000Z',
         'status': 'successful',
@@ -249,7 +260,7 @@ class DummyTransactions {
       },
       {
         'id': 'txn_026',
-        'description': 'Airtel Airtime',
+        'description': 'Airtel Airtime - 08123456789',
         'amount': 2500.00,
         'createdAt': '2026-09-27T13:49:00.000Z',
         'status': 'pending',
@@ -264,11 +275,13 @@ class DummyTransactions {
         'createdAt': '2026-09-27T10:22:00.000Z',
         'status': 'successful',
         'type': 'funding',
+        'paymentMethod': 'bank_transfer',
+        'paymentProvider': 'monnify',
         'reference': 'TP-20260927-027',
       },
       {
         'id': 'txn_028',
-        'description': 'MTN 10GB Data',
+        'description': 'MTN Data - 10GB',
         'amount': 5000.00,
         'createdAt': '2026-09-26T17:15:00.000Z',
         'status': 'successful',
@@ -279,7 +292,7 @@ class DummyTransactions {
       },
       {
         'id': 'txn_029',
-        'description': 'Airtel 5GB Data',
+        'description': 'Airtel Data - 5GB',
         'amount': 2500.00,
         'createdAt': '2026-09-26T12:40:00.000Z',
         'status': 'successful',
@@ -290,7 +303,7 @@ class DummyTransactions {
       },
       {
         'id': 'txn_030',
-        'description': 'MTN Airtime',
+        'description': 'MTN Airtime - 08012345678',
         'amount': 5000.00,
         'createdAt': '2026-09-25T18:08:00.000Z',
         'status': 'successful',
@@ -300,7 +313,7 @@ class DummyTransactions {
       },
       {
         'id': 'txn_031',
-        'description': 'IBEDC Electricity',
+        'description': 'IBEDC Electricity Bill',
         'amount': 6500.00,
         'createdAt': '2026-09-25T14:26:00.000Z',
         'status': 'successful',
@@ -309,7 +322,7 @@ class DummyTransactions {
       },
       {
         'id': 'txn_032',
-        'description': 'Glo Airtime',
+        'description': 'Glo Airtime - 08098765432',
         'amount': 3000.00,
         'createdAt': '2026-09-24T16:12:00.000Z',
         'status': 'successful',
@@ -319,7 +332,7 @@ class DummyTransactions {
       },
       {
         'id': 'txn_033',
-        'description': 'MTN 15GB Data',
+        'description': 'MTN Data - 15GB',
         'amount': 6000.00,
         'createdAt': '2026-09-24T11:35:00.000Z',
         'status': 'successful',
@@ -375,7 +388,7 @@ class DummyTransactions {
       },
       {
         'id': 'txn_039',
-        'description': 'Airtel Airtime',
+        'description': 'Airtel Airtime - 08123456789',
         'amount': 1500.00,
         'createdAt': '2026-09-20T17:44:00.000Z',
         'status': 'successful',
@@ -385,7 +398,7 @@ class DummyTransactions {
       },
       {
         'id': 'txn_040',
-        'description': 'MTN 5GB Data',
+        'description': 'MTN Data - 5GB',
         'amount': 2500.00,
         'createdAt': '2026-09-20T11:28:00.000Z',
         'status': 'successful',
@@ -396,7 +409,7 @@ class DummyTransactions {
       },
       {
         'id': 'txn_041',
-        'description': 'IKEDC Electricity',
+        'description': 'IKEDC Electricity Bill',
         'amount': 12000.00,
         'createdAt': '2026-09-19T18:36:00.000Z',
         'status': 'successful',
@@ -405,7 +418,7 @@ class DummyTransactions {
       },
       {
         'id': 'txn_042',
-        'description': 'DSTV Subscription',
+        'description': 'DStv Compact Subscription',
         'amount': 18500.00,
         'createdAt': '2026-09-19T12:10:00.000Z',
         'status': 'successful',
@@ -414,7 +427,7 @@ class DummyTransactions {
       },
       {
         'id': 'txn_043',
-        'description': 'Glo 10GB Data',
+        'description': 'Glo Data - 10GB',
         'amount': 3500.00,
         'createdAt': '2026-09-18T16:52:00.000Z',
         'status': 'successful',
@@ -425,7 +438,7 @@ class DummyTransactions {
       },
       {
         'id': 'txn_044',
-        'description': 'MTN Airtime',
+        'description': 'MTN Airtime - 08012345678',
         'amount': 2000.00,
         'createdAt': '2026-09-18T10:24:00.000Z',
         'status': 'successful',

@@ -73,17 +73,15 @@ class _RecentTransactionsState extends ConsumerState<RecentTransactions> {
         else if (items.isEmpty)
           _EmptyView()
         else
-          ListView.builder(
+          ListView.separated(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             itemCount: items.length,
+            separatorBuilder: (context, index) => Divider(),
             itemBuilder: (context, index) {
-              final item = items[index];
               return Padding(
-                padding: EdgeInsets.only(
-                  bottom: index == items.length - 1 ? 0 : AppSizes.sm,
-                ),
-                child: TransactionTile(item: item),
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                child: TransactionTile(item: items[index]),
               );
             },
           ),

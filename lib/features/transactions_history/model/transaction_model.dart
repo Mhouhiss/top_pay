@@ -75,27 +75,4 @@ class TransactionModel {
         return 'Failed';
     }
   }
-
-  String get displayTitle {
-    switch (type.toLowerCase()) {
-      case 'airtime':
-        return 'Airtime Purchase';
-      case 'data':
-        return 'Data Purchase';
-      case 'cabletv':
-        return 'Cable TV';
-      case 'electricity':
-        return 'Electricity Bill';
-      case 'education':
-        return 'Education Payment';
-      case 'betting':
-        return 'Betting Payment';
-      case 'funding':
-        return 'Wallet Funding';
-      case 'card':
-        return 'Card Payment';
-      default:
-        return description;
-    }
-  }
 }
