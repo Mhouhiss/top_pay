@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:top_pay/features/dashboard/view/dashboard_screen.dart';
-import 'package:top_pay/features/transactions/view/transactions_screen.dart';
+import 'package:top_pay/features/transactions_history/view/transactions_screen.dart';
 import 'package:top_pay/features/profile/view/profile_screen.dart';
 
 class HomeShell extends StatefulWidget {
