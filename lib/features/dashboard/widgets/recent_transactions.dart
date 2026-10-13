@@ -16,6 +16,14 @@ class RecentTransactions extends ConsumerStatefulWidget {
 
 class _RecentTransactionsState extends ConsumerState<RecentTransactions> {
   @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(transactionHistoryViewModelProvider.notifier).loadTransactions();
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
