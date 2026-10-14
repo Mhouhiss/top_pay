@@ -81,14 +81,17 @@ class _RecentTransactionsState extends ConsumerState<RecentTransactions> {
         else if (items.isEmpty)
           _EmptyView()
         else
-          ListView.separated(
+          ListView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
+            padding: const EdgeInsets.symmetric(
+              horizontal: AppSizes.sm,
+              vertical: AppSizes.sm,
+            ),
             itemCount: items.length,
-            separatorBuilder: (context, index) => Divider(),
             itemBuilder: (context, index) {
               return Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10),
+                padding: const EdgeInsets.only(bottom: AppSizes.sm),
                 child: TransactionTile(item: items[index]),
               );
             },
@@ -118,7 +121,7 @@ class _EmptyView extends StatelessWidget {
           ),
           const SizedBox(height: AppSizes.sm),
           Text(
-            'No recent transactions_history',
+            'No recent transactions',
             style: textTheme.bodySmall?.copyWith(
               color: colorScheme.onSurfaceVariant,
               fontWeight: FontWeight.w500,

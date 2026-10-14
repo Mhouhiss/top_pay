@@ -118,53 +118,25 @@ class TransactionHistoryViewModel
   }
 
   List<TransactionModel> filterTransactions({
-    String? type,
-    String? status,
+    String type = 'all',
     String? search,
-    DateTime? startDate,
-    DateTime? endDate,
   }) {
     final query = search?.trim().toLowerCase() ?? '';
-
-    return state.transactions.where((transaction) {
+    final selectedType = type.toLowerCase();
+    final transactions = state.transactions.where((transaction) {
       final matchesType =
-          type == null ||
-          type.toLowerCase() == 'all' ||
-          transaction.type.toLowerCase() == type.toLowerCase();
-
-      final matchesStatus =
-          status == null ||
-          status.toLowerCase() == 'all' ||
-          transaction.status.name.toLowerCase() == status.toLowerCase();
-
+          selectedType == 'all' ||
+          transaction.type.toLowerCase() == selectedType;
       final matchesSearch =
           query.isEmpty ||
           transaction.description.toLowerCase().contains(query) ||
           transaction.reference.toLowerCase().contains(query) ||
+          transaction.type.toLowerCase().contains(query) ||
           (transaction.phoneNumber?.toLowerCase().contains(query) ?? false);
-
-      final matchesStartDate =
-          startDate == null ||
-          !transaction.createdAt.isBefore(
-            DateTime(startDate.year, startDate.month, startDate.day),
-          );
-
-      final matchesEndDate =
-          endDate == null ||
-          transaction.createdAt.isBefore(
-            DateTime(
-              endDate.year,
-              endDate.month,
-              endDate.day,
-            ).add(const Duration(days: 1)),
-          );
-
-      return matchesType &&
-          matchesStatus &&
-          matchesSearch &&
-          matchesStartDate &&
-          matchesEndDate;
+      return matchesType && matchesSearch;
     }).toList();
+    transactions.sort((a, b) => b.createdAt.compareTo(a.createdAt));
+    return transactions;
   }
 
   Future<Map<String, dynamic>> _fetchTransactions({
@@ -178,7 +150,7 @@ class TransactionHistoryViewModel
     // Real API Call
     // final response = await _apiService.get(
     //   ApiEndpoints.transactions,
-    //   cancelToken: _cancelToken,
+    //   cancelToken: cancelToken,
     //   queryParameters: {
     //     if (type != null && type.toLowerCase() != 'all') 'type': type,
     //     if (status != null && status.toLowerCase() != 'all') 'status': status,

@@ -12,13 +12,13 @@ class DummyTransactions {
       },
       {
         'id': 'txn_002',
-        'description': 'MTN Airtime - 08012345678',
+        'description': 'MTN Airtime - 09013782516',
         'amount': 700.00,
         'createdAt': '2026-10-06T14:32:00.000Z',
         'status': 'successful',
         'type': 'airtime',
         'reference': 'TP-20261006-002',
-        'phoneNumber': '08012345678',
+        'phoneNumber': '09013782516',
       },
       {
         'id': 'txn_046',
@@ -28,7 +28,7 @@ class DummyTransactions {
         'status': 'successful',
         'type': 'data',
         'reference': 'TP-20261006-046',
-        'phoneNumber': '08012345678',
+        'phoneNumber': '07071802344',
         'bundleCode': 'MTN-2GB',
       },
       {
@@ -39,7 +39,7 @@ class DummyTransactions {
         'status': 'reversed',
         'type': 'data',
         'reference': 'TP-20261006-003',
-        'phoneNumber': '08012345678',
+        'phoneNumber': '07071802344',
         'bundleCode': 'MTN-2GB',
       },
       {
@@ -62,13 +62,13 @@ class DummyTransactions {
       },
       {
         'id': 'txn_006',
-        'description': 'Airtel Airtime - 08123456789',
+        'description': 'Airtel Airtime - 07033934262',
         'amount': 1000.00,
         'createdAt': '2026-10-05T15:12:00.000Z',
         'status': 'failed',
         'type': 'airtime',
         'reference': 'TP-20261005-006',
-        'phoneNumber': '08123456789',
+        'phoneNumber': '07033934262',
       },
       {
         'id': 'txn_007',
@@ -83,13 +83,13 @@ class DummyTransactions {
       },
       {
         'id': 'txn_008',
-        'description': 'MTN Airtime - 08012345678',
+        'description': 'MTN Airtime - 07071802344',
         'amount': 5000.00,
         'createdAt': '2026-10-04T18:42:00.000Z',
         'status': 'successful',
         'type': 'airtime',
         'reference': 'TP-20261004-008',
-        'phoneNumber': '08012345678',
+        'phoneNumber': '07071802344',
       },
       {
         'id': 'txn_009',
@@ -108,7 +108,7 @@ class DummyTransactions {
         'status': 'successful',
         'type': 'data',
         'reference': 'TP-20261004-010',
-        'phoneNumber': '08123456789',
+        'phoneNumber': '09013782516',
         'bundleCode': 'AIRTEL-3GB',
       },
       {
@@ -138,7 +138,7 @@ class DummyTransactions {
         'status': 'successful',
         'type': 'data',
         'reference': 'TP-20261003-013',
-        'phoneNumber': '08012345678',
+        'phoneNumber': '07033934262',
         'bundleCode': 'MTN-20GB',
       },
       {
