@@ -10,6 +10,7 @@ class AppTheme {
       useMaterial3: true,
       brightness: Brightness.light,
       fontFamily: 'Sora',
+      dividerColor: AppColors.dividerLight,
       colorScheme: const ColorScheme.light(
         primary: AppColors.primary,
         onPrimary: AppColors.white,
@@ -23,6 +24,7 @@ class AppTheme {
       scaffoldBackgroundColor: AppColors.backgroundLight,
       textTheme: _buildTextTheme(Brightness.light),
       appBarTheme: _buildAppBarTheme(Brightness.light),
+      dividerTheme: _buildDividerTheme(Brightness.light),
       elevatedButtonTheme: _buildElevatedButtonTheme(Brightness.light),
       outlinedButtonTheme: _buildOutlinedButtonTheme(Brightness.light),
       textButtonTheme: _buildTextButtonTheme(Brightness.light),
@@ -39,6 +41,7 @@ class AppTheme {
       useMaterial3: true,
       brightness: Brightness.dark,
       fontFamily: 'Sora',
+      dividerColor: AppColors.dividerDark,
       colorScheme: const ColorScheme.dark(
         primary: AppColors.primaryLight,
         onPrimary: AppColors.white,
@@ -52,6 +55,7 @@ class AppTheme {
       scaffoldBackgroundColor: AppColors.backgroundDark,
       textTheme: _buildTextTheme(Brightness.dark),
       appBarTheme: _buildAppBarTheme(Brightness.dark),
+      dividerTheme: _buildDividerTheme(Brightness.dark),
       elevatedButtonTheme: _buildElevatedButtonTheme(Brightness.dark),
       outlinedButtonTheme: _buildOutlinedButtonTheme(Brightness.dark),
       textButtonTheme: _buildTextButtonTheme(Brightness.dark),
@@ -105,6 +109,16 @@ class AppTheme {
             ? AppColors.textPrimaryLight
             : AppColors.textPrimaryDark,
       ),
+    );
+  }
+
+  static DividerThemeData _buildDividerTheme(Brightness brightness) {
+    return DividerThemeData(
+      color: brightness == Brightness.light
+          ? AppColors.dividerLight
+          : AppColors.dividerDark,
+      thickness: 1,
+      space: 1,
     );
   }
 
