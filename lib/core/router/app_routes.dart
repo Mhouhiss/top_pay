@@ -1,7 +1,13 @@
 import 'package:go_router/go_router.dart';
 import 'package:top_pay/core/router/router.dart';
+import 'package:top_pay/features/bills/view/data_screen.dart';
+import 'package:top_pay/features/bills/view/electricity_screen.dart';
 import 'package:top_pay/features/notification/view/notification_screen.dart';
+import 'package:top_pay/features/profile/view/edit_profile_screen.dart';
 import 'package:top_pay/features/profile/view/profile_screen.dart';
+import 'package:top_pay/features/transactions_history/model/transaction_model.dart';
+import 'package:top_pay/features/transactions_history/view/transactions_screen.dart';
+import 'package:top_pay/features/transactions_history/view/transaction_detail_screen.dart';
 
 import '../../features/splash/view/splash_screen.dart';
 import '../../features/onboarding/view/onboarding_screen.dart';
@@ -58,12 +64,40 @@ final GoRouter router = GoRouter(
       builder: (context, state) => const HomeShell(),
     ),
     GoRoute(
+      path: AppRoutes.transactions,
+      builder: (context, state) => const TransactionsScreen(),
+    ),
+    GoRoute(
+      path: AppRoutes.transactionDetail,
+      builder: (context, state) {
+        final transaction = state.extra as TransactionModel;
+        return TransactionDetailScreen(transaction: transaction);
+      },
+    ),
+    GoRoute(
       path: AppRoutes.profile,
       builder: (context, state) => const ProfileScreen(),
     ),
     GoRoute(
+      path: AppRoutes.editProfile,
+      builder: (context, state) => const EditProfileScreen(),
+    ),
+    GoRoute(
       path: AppRoutes.notifications,
       builder: (context, state) => const NotificationScreen(),
+    ),
+
+    GoRoute(
+      path: AppRoutes.airtime,
+      builder: (context, state) => const DataScreen(),
+    ),
+    GoRoute(
+      path: AppRoutes.data,
+      builder: (context, state) => const DataScreen(),
+    ),
+    GoRoute(
+      path: AppRoutes.electricity,
+      builder: (context, state) => const ElectricityScreen(),
     ),
   ],
 );

@@ -11,16 +11,20 @@ class AppRoutes {
   static const resetPassword = '/reset-password';
 
   static const home = '/home';
-  static const transactions = '/transactions';
+  static const transactions = '/transactions_history';
   static const notifications = '/notifications';
-  static const wallet = '/wallet';
   static const profile = '/profile';
+  static const editProfile = '/edit_profile';
 
   static const airtime = '/airtime';
-  static const dataBundle = '/data';
+  static const data = '/data';
   static const cableTv = '/cable-tv';
   static const electricity = '/electricity';
+  static const education = '/education';
+  static const betting = '/betting';
+  static const cards = '/cards';
+  static const services = '/services';
   static const fundWallet = '/wallet/fund';
-  static const transactionDetail = '/transactions/:id';
+  static const transactionDetail = '/transactions_history/:id';
   static const setPin = '/set-pin';
 }
