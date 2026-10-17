@@ -9,23 +9,13 @@ class AppAssets {
   static const String onboarding3 = 'assets/images/onboarding3.png';
 
   static const String profile = 'assets/images/profile.png';
-  static const String airtime = 'assets/svg/airtime.svg';
-  static const String data = 'assets/svg/data.svg';
-  static const String electricity = 'assets/svg/electricity.svg';
-  static const String tv = 'assets/svg/tv.svg';
-  static const String receive = 'assets/svg/receive.svg';
-  static const String send = 'assets/svg/send.svg';
-  static const String tela = 'assets/svg/telaMainLogo.svg';
-  static const String bank = 'assets/svg/bank.svg';
-  static const String beneficiaries = 'assets/svg/beneficiary.svg';
-  static const String giftCodeLogo = 'assets/svg/gift_code.svg';
-
-  // Social Media Icons
-  static const String instagramIcon = 'assets/image/skill-icons_instagram.png';
-  static const String facebookIcon = 'assets/image/facebook_logo.png';
-  static const String telegramIcon = 'assets/image/logos_telegram.png';
-  static const String xIcon = 'assets/image/twitter_logo.png';
-  static const String whatsappIcon = 'assets/image/whatsapp_logo.png';
-  static const String tiktokIcon = 'assets/image/tiktok.png';
-  static const String youtubeIcon = 'assets/svg/youtube.svg';
+  static const String airtime = 'assets/images/services/airtime.png';
+  static const String data = 'assets/images/services/data.png';
+  static const String electricity = 'assets/images/services/electricity.png';
+  static const String tv = 'assets/images/services/cable-tv.png';
+  static const String education = 'assets/images/services/education.png';
+  static const String card = 'assets/images/services/card.png';
+  static const String betting = 'assets/images/services/betting.png';
+  static const String wallet = 'assets/images/services/wallet.png';
+  static const String funding = 'assets/images/services/funding.png';
 }
