@@ -16,6 +16,18 @@ class AppAssets {
   static const String education = 'assets/images/services/education.png';
   static const String card = 'assets/images/services/card.png';
   static const String betting = 'assets/images/services/betting.png';
+  static const String more = 'assets/images/services/more.png';
   static const String wallet = 'assets/images/services/wallet.png';
   static const String funding = 'assets/images/services/funding.png';
+
+  static const String mtn = 'assets/images/providers/mtn.png';
+  static const String airtel = 'assets/images/providers/airtel.png';
+  static const String glo = 'assets/images/providers/glo.png';
+  static const String nineMobile = 'assets/images/providers/9mobile.png';
+  static const String bedc = 'assets/images/services/bedc.png';
+  static const String ibedc = 'assets/images/services/ibedc.png';
+  static const String ikedc = 'assets/images/services/ikedc.png';
+  static const String gotv = 'assets/images/services/gotv.png';
+  static const String dstv = 'assets/images/services/dstv.png';
+  static const String startimes = 'assets/images/services/startimes.png';
 }
