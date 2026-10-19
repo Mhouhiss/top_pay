@@ -30,4 +30,5 @@ class AppAssets {
   static const String gotv = 'assets/images/services/gotv.png';
   static const String dstv = 'assets/images/services/dstv.png';
   static const String startimes = 'assets/images/services/startimes.png';
+  static const String showmax = 'assets/images/services/showmax.png';
 }
