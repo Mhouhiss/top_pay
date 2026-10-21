@@ -102,6 +102,34 @@ class FirebaseAuthService {
     }
   }
 
+  Future<void> updateDisplayName(String displayName) async {
+    try {
+      final user = _firebaseAuth.currentUser;
+      if (user == null) throw Exception('No user is currently logged in.');
+      await user.updateDisplayName(displayName.trim());
+      await user.reload();
+    } on FirebaseAuthException catch (e) {
+      Logger.error('Failed to update display name (${e.code})', error: e);
+      throw Exception(FirebaseAuthErrorMapper.map(e));
+    }
+  }
+
+  Future<User> refreshCurrentUser() async {
+    try {
+      final user = _firebaseAuth.currentUser;
+      if (user == null) throw Exception('No user is currently logged in.');
+      await user.reload();
+      final refreshedUser = _firebaseAuth.currentUser;
+      if (refreshedUser == null) {
+        throw Exception('Unable to refresh your profile.');
+      }
+      return refreshedUser;
+    } on FirebaseAuthException catch (e) {
+      Logger.error('Failed to refresh current user (${e.code})', error: e);
+      throw Exception(FirebaseAuthErrorMapper.map(e));
+    }
+  }
+
   Future<void> deleteAccount() async {
     try {
       final user = _firebaseAuth.currentUser;

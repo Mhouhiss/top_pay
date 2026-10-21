@@ -182,6 +182,44 @@ class AuthViewModel extends StateNotifier<AuthState> {
     }
   }
 
+  Future<bool> updateProfile({required String displayName}) async {
+    final name = displayName.trim();
+
+    if (name.isEmpty) {
+      _safeSetState(
+        state.copyWith(errorMessage: 'Please enter your full name.'),
+      );
+      return false;
+    }
+
+    Logger.userAction('Update Profile');
+
+    _safeSetState(state.copyWith(isLoading: true, clearError: true));
+
+    try {
+      await _authService.updateDisplayName(name);
+
+      final user = await _authService.refreshCurrentUser();
+      final userModel = UserModel.fromFirebaseUser(user);
+
+      _safeSetState(
+        state.copyWith(user: userModel, isLoading: false, clearError: true),
+      );
+
+      Logger.success('Profile updated successfully');
+
+      return true;
+    } catch (e) {
+      Logger.error('Failed to update profile', error: e);
+
+      _safeSetState(
+        state.copyWith(isLoading: false, errorMessage: _formatError(e)),
+      );
+
+      return false;
+    }
+  }
+
   Future<bool> deleteAccount() async {
     Logger.userAction('Delete Account');
     _safeSetState(state.copyWith(isLoading: true, clearError: true));

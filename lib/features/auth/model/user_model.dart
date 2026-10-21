@@ -31,6 +31,28 @@ class UserModel {
     );
   }
 
+  UserModel copyWith({
+    String? email,
+    String? displayName,
+    String? phoneNumber,
+    String? photoUrl,
+    bool? emailVerified,
+    DateTime? createdAt,
+    bool clearDisplayName = false,
+    bool clearPhoneNumber = false,
+    bool clearPhotoUrl = false,
+  }) {
+    return UserModel(
+      uid: uid,
+      email: email ?? this.email,
+      displayName: clearDisplayName ? null : displayName ?? this.displayName,
+      phoneNumber: clearPhoneNumber ? null : phoneNumber ?? this.phoneNumber,
+      photoUrl: clearPhotoUrl ? null : photoUrl ?? this.photoUrl,
+      emailVerified: emailVerified ?? this.emailVerified,
+      createdAt: createdAt ?? this.createdAt,
+    );
+  }
+
   Map<String, dynamic> toJson() {
     return {
       'uid': uid,
