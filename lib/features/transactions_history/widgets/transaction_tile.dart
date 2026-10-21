@@ -3,6 +3,7 @@ import 'package:top_pay/core/constants/app_sizes.dart';
 import 'package:top_pay/core/theme/app_colors.dart';
 import 'package:top_pay/core/utils/formatters.dart';
 import '../../transactions_history/model/transaction_model.dart';
+import '../../transactions_history/widgets/default_transaction_icon.dart';
 
 class TransactionTile extends StatelessWidget {
   final TransactionModel item;
@@ -26,14 +27,33 @@ class TransactionTile extends StatelessWidget {
             width: 40,
             height: 40,
             decoration: BoxDecoration(
-              color: colorScheme.primaryContainer,
+              color: colorScheme.onPrimaryContainer,
               shape: BoxShape.circle,
             ),
-            child: Icon(
-              _transactionIcon(item),
-              size: AppSizes.iconMd,
-              color: colorScheme.onPrimaryContainer,
-            ),
+            alignment: Alignment.center,
+            child: item.provider != null && item.provider!.trim().isNotEmpty
+                ? Image.asset(
+                    item.providerIcon,
+                    width: 40,
+                    height: 40,
+                    fit: BoxFit.contain,
+                    errorBuilder: (context, error, stackTrace) {
+                      return Image.asset(
+                        transactionIcon(item),
+                        width: 27,
+                        height: 27,
+                        color: colorScheme.primaryContainer,
+                        fit: BoxFit.contain,
+                      );
+                    },
+                  )
+                : Image.asset(
+                    transactionIcon(item),
+                    width: 27,
+                    height: 27,
+                    color: colorScheme.primaryContainer,
+                    fit: BoxFit.contain,
+                  ),
           ),
           const SizedBox(width: AppSizes.sm),
           Expanded(
@@ -64,7 +84,7 @@ class TransactionTile extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Text(
-                Formatters.amount(item.amount, item.type),
+                Formatters.transactionAmount(item.amount, item.type),
                 maxLines: 1,
                 style: textTheme.bodyMedium?.copyWith(
                   fontWeight: FontWeight.w600,
@@ -106,29 +126,6 @@ class TransactionTile extends StatelessWidget {
         return AppColors.info;
       case TransactionStatus.failed:
         return AppColors.error;
-    }
-  }
-
-  IconData _transactionIcon(TransactionModel item) {
-    switch (item.type.toLowerCase()) {
-      case 'airtime':
-        return Icons.phone_android_outlined;
-      case 'data':
-        return Icons.wifi_outlined;
-      case 'cabletv':
-        return Icons.live_tv_outlined;
-      case 'electricity':
-        return Icons.lightbulb_outline_rounded;
-      case 'education':
-        return Icons.school_outlined;
-      case 'betting':
-        return Icons.sports_soccer_outlined;
-      case 'funding':
-        return Icons.account_balance_wallet_outlined;
-      case 'card':
-        return Icons.credit_card_outlined;
-      default:
-        return Icons.receipt_long_outlined;
     }
   }
 }

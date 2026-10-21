@@ -1,3 +1,5 @@
+import 'package:top_pay/core/constants/app_assets.dart';
+
 enum TransactionStatus { successful, pending, reversed, failed }
 
 class TransactionModel {
@@ -12,6 +14,7 @@ class TransactionModel {
     this.userId,
     this.phoneNumber,
     this.bundleCode,
+    this.provider,
   });
 
   final String id;
@@ -24,6 +27,7 @@ class TransactionModel {
   final String? userId;
   final String? phoneNumber;
   final String? bundleCode;
+  final String? provider;
 
   bool get isSuccessful => status == TransactionStatus.successful;
 
@@ -45,6 +49,7 @@ class TransactionModel {
       userId: json['userId'] as String?,
       phoneNumber: json['phoneNumber'] as String?,
       bundleCode: json['bundleCode'] as String?,
+      provider: json['provider'] as String?,
     );
   }
 
@@ -60,6 +65,7 @@ class TransactionModel {
       'userId': userId,
       'phoneNumber': phoneNumber,
       'bundleCode': bundleCode,
+      'provider': provider,
     };
   }
 
@@ -73,6 +79,67 @@ class TransactionModel {
         return 'Reversed';
       case TransactionStatus.failed:
         return 'Failed';
+    }
+  }
+
+  String get providerIcon {
+    switch (type.toLowerCase().trim()) {
+      case 'airtime':
+      case 'data':
+        switch (provider?.toLowerCase().trim()) {
+          case 'mtn':
+            return AppAssets.mtn;
+          case 'airtel':
+            return AppAssets.airtel;
+          case 'glo':
+            return AppAssets.glo;
+          case '9mobile':
+            return AppAssets.nineMobile;
+          default:
+            return AppAssets.airtime;
+        }
+
+      case 'electricity':
+        switch (provider?.toLowerCase().trim()) {
+          case 'ikedc':
+            return AppAssets.ikedc;
+          case 'ibedc':
+            return AppAssets.ibedc;
+          case 'bedc':
+            return AppAssets.bedc;
+          default:
+            return AppAssets.electricity;
+        }
+
+      case 'cabletv':
+      case 'cable_tv':
+        switch (provider?.toLowerCase().trim()) {
+          case 'gotv':
+            return AppAssets.gotv;
+          case 'dstv':
+            return AppAssets.dstv;
+          case 'startimes':
+            return AppAssets.startimes;
+          case 'showmax':
+            return AppAssets.showmax;
+          default:
+            return AppAssets.tv;
+        }
+
+      case 'education':
+        return AppAssets.education;
+
+      case 'betting':
+        return AppAssets.betting;
+
+      case 'funding':
+        return AppAssets.funding;
+
+      case 'card':
+        return AppAssets.card;
+
+      default:
+        return AppAssets.wallet;
     }
   }
 }

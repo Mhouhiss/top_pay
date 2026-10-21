@@ -40,7 +40,7 @@ class _TransactionFilterSheetState extends State<TransactionFilterSheet> {
       child: SingleChildScrollView(
         padding: const EdgeInsets.fromLTRB(
           AppSizes.md,
-          AppSizes.sm,
+          AppSizes.md,
           AppSizes.md,
           AppSizes.lg,
         ),
@@ -60,13 +60,12 @@ class _TransactionFilterSheetState extends State<TransactionFilterSheet> {
             ),
             const SizedBox(height: AppSizes.md),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Expanded(
-                  child: Text(
-                    'Filter transactions',
-                    style: textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.w600,
-                    ),
+                Text(
+                  'Filter transactions',
+                  style: textTheme.titleLarge?.copyWith(
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
                 IconButton(
@@ -79,26 +78,27 @@ class _TransactionFilterSheetState extends State<TransactionFilterSheet> {
             Text(
               'Transaction type',
               style: textTheme.titleSmall?.copyWith(
-                fontWeight: FontWeight.w600,
+                fontWeight: FontWeight.w500,
               ),
             ),
-            const SizedBox(height: 12),
+            const SizedBox(height: AppSizes.sm),
             Wrap(
               spacing: 8,
               runSpacing: 8,
-              children: _types.map((type) {
-                return ChoiceChip(
-                  label: Text(type.label),
-                  selected: _selectedType == type.value,
-                  onSelected: (_) {
-                    setState(() {
-                      _selectedType = type.value;
-                    });
-                  },
-                );
-              }).toList(),
+              children: [
+                for (final type in _types)
+                  ChoiceChip(
+                    label: Text(type.label),
+                    selected: _selectedType == type.value,
+                    onSelected: (_) {
+                      setState(() {
+                        _selectedType = type.value;
+                      });
+                    },
+                  ),
+              ],
             ),
-            const SizedBox(height: 28),
+            const SizedBox(height: AppSizes.lg),
             Row(
               children: [
                 Expanded(
@@ -111,7 +111,7 @@ class _TransactionFilterSheetState extends State<TransactionFilterSheet> {
                     child: const Text('Reset'),
                   ),
                 ),
-                const SizedBox(width: 12),
+                const SizedBox(width: AppSizes.md),
                 Expanded(
                   child: FilledButton(
                     onPressed: () {

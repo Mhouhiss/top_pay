@@ -55,7 +55,7 @@ class _TransactionsScreenState extends ConsumerState<TransactionsScreen> {
 
   void _onSearchChanged(String value) {
     _debounce?.cancel();
-    _debounce = Timer(const Duration(milliseconds: 500), () {
+    _debounce = Timer(const Duration(milliseconds: 350), () {
       if (!mounted) return;
       setState(() {
         _searchQuery = value.trim().toLowerCase();
@@ -98,7 +98,7 @@ class _TransactionsScreenState extends ConsumerState<TransactionsScreen> {
     final colorScheme = Theme.of(context).colorScheme;
 
     return Scaffold(
-      appBar: CustomAppBar(title: 'Transaction History', showBackButton: true),
+      appBar: CustomAppBar(title: 'Transaction History'),
       body: Column(
         children: [
           Padding(
@@ -115,7 +115,7 @@ class _TransactionsScreenState extends ConsumerState<TransactionsScreen> {
                     controller: _searchController,
                     onChanged: _onSearchChanged,
                     textInputAction: TextInputAction.search,
-                    hint: 'Search transactions',
+                    hint: 'Search transactions...',
                     prefixIcon: const Icon(Icons.search),
                     suffixIcon: _searchController.text.isNotEmpty
                         ? IconButton(
@@ -132,17 +132,22 @@ class _TransactionsScreenState extends ConsumerState<TransactionsScreen> {
                   ),
                 ),
                 const SizedBox(width: AppSizes.sm),
-                IconButton(
-                  onPressed: _openFilterSheet,
-                  tooltip: 'Filter transactions',
-                  style: IconButton.styleFrom(
-                    backgroundColor: colorScheme.surfaceContainerHighest,
-                    foregroundColor: colorScheme.onSurface,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(AppSizes.radiusMd),
+                SizedBox(
+                  height: AppSizes.xxl,
+                  width: AppSizes.xxl,
+                  child: IconButton(
+                    onPressed: _openFilterSheet,
+                    tooltip: 'Filter transactions',
+                    style: IconButton.styleFrom(
+                      backgroundColor: colorScheme.surfaceContainerHighest,
+                      foregroundColor: colorScheme.onSurface,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(AppSizes.radiusMd),
+                      ),
+                      padding: EdgeInsets.zero,
                     ),
+                    icon: Icon(Icons.tune, size: AppSizes.iconMd),
                   ),
-                  icon: Icon(Icons.tune),
                 ),
               ],
             ),
@@ -271,7 +276,10 @@ class _TransactionsScreenState extends ConsumerState<TransactionsScreen> {
             child: TransactionTile(
               item: transactions[index],
               onTap: () {
-                context.push(AppRoutes.transactionDetail);
+                context.push(
+                  AppRoutes.transactionDetail,
+                  extra: transactions[index],
+                );
               },
             ),
           );
