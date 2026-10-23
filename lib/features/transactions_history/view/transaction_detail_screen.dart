@@ -28,15 +28,19 @@ class TransactionDetailScreen extends StatelessWidget {
           children: [
             Expanded(
               child: SingleChildScrollView(
-                padding: const EdgeInsets.all(AppSizes.md),
+                padding: const EdgeInsets.fromLTRB(
+                  AppSizes.md,
+                  AppSizes.sm,
+                  AppSizes.md,
+                  AppSizes.md,
+                ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    const SizedBox(height: AppSizes.md),
+                    const SizedBox(height: AppSizes.sm),
                     _buildTransactionSummary(context, statusColor),
                     const SizedBox(height: AppSizes.lg),
                     _buildPaymentDetails(context),
-                    SizedBox(height: AppSizes.lg),
                   ],
                 ),
               ),
@@ -48,7 +52,11 @@ class TransactionDetailScreen extends StatelessWidget {
                 AppSizes.md,
                 AppSizes.md,
               ),
-              child: CustomButton(label: 'Share Receipt', onPressed: () {}),
+              child: CustomButton(
+                label: 'Share Receipt',
+                borderRadius: BorderRadius.circular(AppSizes.radiusPill),
+                onPressed: () {},
+              ),
             ),
           ],
         ),
@@ -66,7 +74,7 @@ class TransactionDetailScreen extends StatelessWidget {
           width: 56,
           height: 56,
           decoration: BoxDecoration(
-            color: colorScheme.primary.withValues(alpha: 0.10),
+            color: colorScheme.surfaceContainerHighest,
             shape: BoxShape.circle,
           ),
           alignment: Alignment.center,
@@ -83,7 +91,7 @@ class TransactionDetailScreen extends StatelessWidget {
                   transactionIcon(transaction),
                   width: 28,
                   height: 28,
-                  color: colorScheme.primaryContainer,
+                  color: colorScheme.onSurfaceVariant,
                   fit: BoxFit.contain,
                 ),
         ),
@@ -137,7 +145,7 @@ class TransactionDetailScreen extends StatelessWidget {
 
         Text(
           transaction.description,
-          style: theme.textTheme.bodyMedium?.copyWith(
+          style: theme.textTheme.bodyLarge?.copyWith(
             color: colorScheme.onSurfaceVariant,
           ),
           textAlign: TextAlign.center,
@@ -156,10 +164,10 @@ class TransactionDetailScreen extends StatelessWidget {
       children: [
         Container(
           width: double.infinity,
-          padding: const EdgeInsets.all(AppSizes.lg),
+          padding: const EdgeInsets.all(AppSizes.md),
           decoration: BoxDecoration(
             color: colorScheme.surfaceContainerLow,
-            borderRadius: BorderRadius.circular(AppSizes.radiusXl),
+            borderRadius: BorderRadius.circular(AppSizes.radiusLg),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -170,7 +178,7 @@ class TransactionDetailScreen extends StatelessWidget {
                   fontWeight: FontWeight.w600,
                 ),
               ),
-              const SizedBox(height: AppSizes.lg),
+              const SizedBox(height: AppSizes.md),
               _buildPaymentDetail(
                 context,
                 label: 'Reference No',
@@ -185,7 +193,6 @@ class TransactionDetailScreen extends StatelessWidget {
                 label: 'Transaction type',
                 value: _transactionType,
               ),
-
               const SizedBox(height: AppSizes.md),
 
               if (_hasProvider) ...[
@@ -208,14 +215,6 @@ class TransactionDetailScreen extends StatelessWidget {
 
               _buildPaymentDetail(
                 context,
-                label: 'Status',
-                value: transaction.statusLabel,
-              ),
-
-              const SizedBox(height: AppSizes.md),
-
-              _buildPaymentDetail(
-                context,
                 label: 'Date and Time',
                 value: Formatters.dateTime(transaction.createdAt),
               ),
@@ -226,6 +225,7 @@ class TransactionDetailScreen extends StatelessWidget {
     );
   }
 
+  // Single payment detail widget
   Widget _buildPaymentDetail(
     BuildContext context, {
     required String label,
@@ -249,28 +249,31 @@ class TransactionDetailScreen extends StatelessWidget {
 
         Row(
           crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
           children: [
-            Expanded(
+            Flexible(
+              fit: FlexFit.loose,
               child: SelectableText(
                 value,
+                maxLines: 1,
                 style: theme.textTheme.bodyLarge?.copyWith(
-                  color: colorScheme.onSurfaceVariant,
+                  color: colorScheme.onSurface,
                   fontWeight: FontWeight.w500,
                 ),
               ),
             ),
 
             if (showCopy) ...[
-              const SizedBox(width: AppSizes.sm),
+              const SizedBox(width: AppSizes.xs),
               SizedBox(
-                width: 32,
-                height: 32,
+                width: 24,
+                height: 24,
                 child: IconButton(
                   onPressed: () => _copyReference(),
                   padding: EdgeInsets.zero,
                   constraints: BoxConstraints(),
                   icon: const Icon(Icons.copy_rounded),
-                  iconSize: 20,
+                  iconSize: AppSizes.iconSm,
                   color: colorScheme.onSurfaceVariant,
                   tooltip: 'Copy Reference No',
                 ),
