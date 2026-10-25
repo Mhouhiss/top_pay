@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:top_pay/core/providers/theme_provider.dart';
 import 'package:top_pay/firebase_options.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -22,18 +23,20 @@ Future<void> main() async {
   );
 }
 
-class TopPayApp extends StatelessWidget {
+class TopPayApp extends ConsumerWidget {
   const TopPayApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final themeMode = ref.watch(themeProvider);
+
     return MaterialApp.router(
       routerConfig: router,
       debugShowCheckedModeBanner: false,
       title: 'TopPay',
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
-      themeMode: ThemeMode.system,
+      themeMode: themeMode,
     );
   }
 }
