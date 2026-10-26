@@ -55,7 +55,7 @@ class _RecentTransactionsState extends ConsumerState<RecentTransactions> {
                     Text(
                       'View all',
                       style: textTheme.bodyMedium?.copyWith(
-                        color: colorScheme.primary,
+                        color: colorScheme.onSurface,
                       ),
                     ),
                     const SizedBox(width: AppSizes.xs),

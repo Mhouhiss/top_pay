@@ -272,7 +272,7 @@ class _TransactionsScreenState extends ConsumerState<TransactionsScreen> {
         itemCount: transactions.length,
         itemBuilder: (context, index) {
           return Padding(
-            padding: const EdgeInsets.only(bottom: AppSizes.sm),
+            padding: const EdgeInsets.only(bottom: AppSizes.md),
             child: TransactionTile(
               item: transactions[index],
               onTap: () {

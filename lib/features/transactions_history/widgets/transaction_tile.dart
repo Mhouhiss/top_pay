@@ -27,7 +27,7 @@ class TransactionTile extends StatelessWidget {
             width: 40,
             height: 40,
             decoration: BoxDecoration(
-              color: colorScheme.onPrimaryContainer,
+              color: AppColors.white,
               shape: BoxShape.circle,
             ),
             alignment: Alignment.center,

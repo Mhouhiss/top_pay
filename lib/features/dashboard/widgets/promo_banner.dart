@@ -22,15 +22,13 @@ class PromoBanner extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(AppSizes.sm),
         decoration: BoxDecoration(
-          color: colorScheme.surface,
+          color: colorScheme.surfaceContainerLowest,
           borderRadius: borderRadius,
-          border: Border.all(
-            color: colorScheme.secondary.withValues(alpha: 0.18),
-          ),
+          border: Border.all(color: colorScheme.outlineVariant),
         ),
         child: Row(
           children: [
-            Icon(Icons.local_offer_outlined, size: 20, color: AppColors.mtn),
+            Icon(Icons.campaign_outlined, size: 20, color: AppColors.mtn),
             const SizedBox(width: AppSizes.sm),
             Expanded(
               child: Text(
@@ -39,7 +37,7 @@ class PromoBanner extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
                 style: textTheme.bodyMedium?.copyWith(
                   fontWeight: FontWeight.w500,
-                  color: AppColors.mtn,
+                  color: colorScheme.onSurface,
                 ),
               ),
             ),

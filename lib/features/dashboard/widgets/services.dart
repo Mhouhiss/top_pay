@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:top_pay/core/constants/app_sizes.dart';
 import 'package:top_pay/core/router/router.dart';
+import 'package:top_pay/core/constants/app_assets.dart';
 
 class Services extends StatelessWidget {
   const Services({super.key});
@@ -9,42 +10,38 @@ class Services extends StatelessWidget {
   static const List<ServiceCategory> _services = [
     ServiceCategory(
       title: 'Airtime',
-      icon: Icons.phone_android_outlined,
+      icon: AppAssets.airtime,
       route: AppRoutes.airtime,
     ),
-    ServiceCategory(
-      title: 'Data',
-      icon: Icons.wifi_outlined,
-      route: AppRoutes.data,
-    ),
+    ServiceCategory(title: 'Data', icon: AppAssets.data, route: AppRoutes.data),
     ServiceCategory(
       title: 'Cable TV',
-      icon: Icons.live_tv_outlined,
+      icon: AppAssets.tv,
       route: AppRoutes.cableTv,
     ),
     ServiceCategory(
       title: 'Electricity',
-      icon: Icons.lightbulb_outline_rounded,
+      icon: AppAssets.electricity,
       route: AppRoutes.electricity,
     ),
     ServiceCategory(
       title: 'Education',
-      icon: Icons.school_outlined,
+      icon: AppAssets.education,
       route: AppRoutes.education,
     ),
     ServiceCategory(
       title: 'Betting',
-      icon: Icons.sports_soccer_outlined,
+      icon: AppAssets.betting,
       route: AppRoutes.betting,
     ),
     ServiceCategory(
       title: 'Cards',
-      icon: Icons.credit_card_outlined,
+      icon: AppAssets.card,
       route: AppRoutes.cards,
     ),
     ServiceCategory(
       title: 'More',
-      icon: Icons.grid_view_outlined,
+      icon: AppAssets.more,
       route: AppRoutes.services,
     ),
   ];
@@ -55,11 +52,11 @@ class Services extends StatelessWidget {
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       itemCount: _services.length,
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 4,
-        mainAxisSpacing: 12,
+      gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+        maxCrossAxisExtent: 100,
+        mainAxisSpacing: 8,
         crossAxisSpacing: 4,
-        childAspectRatio: 0.9,
+        mainAxisExtent: 85,
       ),
       itemBuilder: (context, index) {
         final service = _services[index];
@@ -82,8 +79,16 @@ class _ServiceItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-    final textTheme = Theme.of(context).textTheme;
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+    final textTheme = theme.textTheme;
+    final isDark = theme.brightness == Brightness.dark;
+    final iconBg = isDark
+        ? colorScheme.primaryContainer
+        : colorScheme.primary.withValues(alpha: 0.1);
+    final iconColor = isDark
+        ? colorScheme.onPrimaryContainer
+        : colorScheme.primary;
 
     return InkWell(
       onTap: onTap,
@@ -94,14 +99,15 @@ class _ServiceItem extends StatelessWidget {
           Container(
             width: 52,
             height: 52,
-            decoration: BoxDecoration(
-              color: colorScheme.primaryContainer,
-              shape: BoxShape.circle,
-            ),
-            child: Icon(
+            alignment: Alignment.center,
+            decoration: BoxDecoration(color: iconBg, shape: BoxShape.circle),
+            child: Image.asset(
               service.icon,
-              size: 27,
-              color: colorScheme.onPrimaryContainer,
+              width: 27,
+              height: 27,
+              color: iconColor,
+              colorBlendMode: BlendMode.srcIn,
+              fit: BoxFit.contain,
             ),
           ),
           const SizedBox(height: AppSizes.sm),
@@ -129,6 +135,6 @@ class ServiceCategory {
   });
 
   final String title;
-  final IconData icon;
+  final String icon;
   final String route;
 }

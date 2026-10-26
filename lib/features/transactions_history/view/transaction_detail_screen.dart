@@ -74,7 +74,7 @@ class TransactionDetailScreen extends StatelessWidget {
           width: 56,
           height: 56,
           decoration: BoxDecoration(
-            color: colorScheme.surfaceContainerHighest,
+            color: AppColors.white,
             shape: BoxShape.circle,
           ),
           alignment: Alignment.center,
