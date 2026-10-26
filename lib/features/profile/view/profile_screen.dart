@@ -77,9 +77,10 @@ class ProfileScreen extends ConsumerWidget {
                 backgroundColor: colorScheme.primary.withValues(alpha: 0.1),
                 child: Image.asset(
                   AppAssets.profile,
-                  width: 46,
-                  height: 46,
+                  width: 56,
+                  height: 56,
                   color: colorScheme.primary,
+                  fit: BoxFit.contain,
                 ),
               ),
             ),
@@ -110,12 +111,12 @@ class ProfileScreen extends ConsumerWidget {
 
             const SizedBox(height: AppSizes.lg),
 
-            CustomButton(
+            CustomButton.secondary(
               label: 'Edit Profile',
               leadingIcon: Icons.edit_outlined,
-              onPressed: () {
-                context.push(AppRoutes.editProfile);
-              },
+              onPressed: () => context.push(AppRoutes.editProfile),
+              size: ButtonSize.medium,
+              textColor: colorScheme.onSurfaceVariant,
               borderRadius: BorderRadius.circular(AppSizes.radiusPill),
             ),
 
@@ -133,20 +134,12 @@ class ProfileScreen extends ConsumerWidget {
             ),
 
             _ProfileTile(
-              icon: Icons.verified_user_outlined,
-              title: 'Email Verification',
-              subtitle: user?.emailVerified == true
-                  ? 'Your email is verified'
-                  : 'Your email is not verified',
-              trailing: Icon(
-                user?.emailVerified == true
-                    ? Icons.check_circle_outline
-                    : Icons.info_outline,
-                color: user?.emailVerified == true
-                    ? colorScheme.primary
-                    : colorScheme.onSurfaceVariant,
-              ),
-              onTap: user?.emailVerified == true ? null : () {},
+              icon: Icons.workspace_premium_outlined,
+              title: 'Upgrade Account',
+              subtitle: 'Unlock more account features',
+              onTap: () {
+                //Upgrade Account screen
+              },
             ),
 
             _ProfileTile(
@@ -245,9 +238,14 @@ class _ThemeModeTile extends StatelessWidget {
     final colorScheme = theme.colorScheme;
 
     return ListTile(
-      contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+      contentPadding: const EdgeInsets.symmetric(
+        horizontal: AppSizes.sm,
+        vertical: AppSizes.xs,
+      ),
+
       leading: Icon(
         isDarkMode ? Icons.dark_mode_outlined : Icons.light_mode_outlined,
+        color: colorScheme.primary,
       ),
       title: const Text('Dark Mode'),
       subtitle: const Text('Switch your app appearance'),
@@ -264,7 +262,6 @@ class _ProfileTile extends StatelessWidget {
   final IconData icon;
   final String title;
   final String? subtitle;
-  final Widget? trailing;
   final Color? iconColor;
   final Color? titleColor;
   final VoidCallback? onTap;
@@ -273,7 +270,6 @@ class _ProfileTile extends StatelessWidget {
     required this.icon,
     required this.title,
     this.subtitle,
-    this.trailing,
     this.iconColor,
     this.titleColor,
     this.onTap,
@@ -289,18 +285,7 @@ class _ProfileTile extends StatelessWidget {
         horizontal: AppSizes.sm,
         vertical: AppSizes.xs,
       ),
-      leading: Container(
-        padding: const EdgeInsets.all(AppSizes.sm),
-        decoration: BoxDecoration(
-          color: (iconColor ?? colorScheme.primary).withValues(alpha: 0.1),
-          shape: BoxShape.circle,
-        ),
-        child: Icon(
-          icon,
-          color: iconColor ?? colorScheme.primary,
-          size: AppSizes.iconSm,
-        ),
-      ),
+      leading: Icon(icon, color: iconColor ?? colorScheme.primary),
       title: Text(
         title,
         style: theme.textTheme.bodyLarge?.copyWith(
@@ -316,13 +301,7 @@ class _ProfileTile extends StatelessWidget {
                 color: colorScheme.onSurfaceVariant,
               ),
             ),
-      trailing:
-          trailing ??
-          Icon(
-            Icons.chevron_right,
-            color: colorScheme.onSurfaceVariant,
-            size: AppSizes.iconSm,
-          ),
+      trailing: Icon(Icons.chevron_right, color: colorScheme.onSurfaceVariant),
       onTap: onTap,
     );
   }
