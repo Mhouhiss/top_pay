@@ -9,19 +9,44 @@ class Formatters {
     return 'evening';
   }
 
-  static String dateTime(DateTime timestamp) {
-    final hour = timestamp.hour % 12 == 0 ? 12 : timestamp.hour % 12;
-    final minute = timestamp.minute.toString().padLeft(2, '0');
-    final period = timestamp.hour >= 12 ? 'PM' : 'AM';
-
-    return '${timestamp.day}/${timestamp.month}/${timestamp.year} '
-        '$hour:$minute $period';
+  static String dateTime(DateTime date) {
+    final day = date.day;
+    final daySuffix = _daySuffix(day);
+    final formattedDate = DateFormat('MMM, hh:mm a').format(date);
+    return '$day$daySuffix $formattedDate';
   }
 
+  static String _daySuffix(int day) {
+    if (day >= 11 && day <= 13) {
+      return 'th';
+    }
+    switch (day % 10) {
+      case 1:
+        return 'st';
+      case 2:
+        return 'nd';
+      case 3:
+        return 'rd';
+      default:
+        return 'th';
+    }
+  }
+
+  // For ordinary Transaction amount
   static String amount(double amount) {
-    final sign = amount >= 0 ? '+' : '-';
-    final value = amount.abs().toStringAsFixed(2);
-    return '$sign₦$value';
+    return NumberFormat.currency(
+      locale: 'en_NG',
+      symbol: '₦',
+      decimalDigits: 2,
+    ).format(amount.abs());
+  }
+
+  // For transactions amount with sign in front
+  static String transactionAmount(double amount, String type) {
+    final formattedAmount = Formatters.amount(amount);
+    final isCredit = type.toLowerCase() == 'funding';
+
+    return isCredit ? '+$formattedAmount' : '−$formattedAmount';
   }
 
   static String date(DateTime date) => DateFormat('MMM d, yyyy').format(date);
