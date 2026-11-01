@@ -1,5 +1,5 @@
 import 'package:top_pay/core/constants/app_assets.dart';
-import 'package:top_pay/features/transactions_history/model/transaction_model.dart';
+import 'package:top_pay/features/transactions/model/transaction_model.dart';
 
 String transactionIcon(TransactionModel transaction) {
   switch (transaction.type.toLowerCase().trim()) {

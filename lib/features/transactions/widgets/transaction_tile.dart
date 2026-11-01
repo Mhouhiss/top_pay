@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:top_pay/core/constants/app_sizes.dart';
 import 'package:top_pay/core/theme/app_colors.dart';
 import 'package:top_pay/core/utils/formatters.dart';
-import '../../transactions_history/model/transaction_model.dart';
-import '../../transactions_history/widgets/default_transaction_icon.dart';
+import '../../transactions/model/transaction_model.dart';
+import '../../transactions/widgets/default_transaction_icon.dart';
 
 class TransactionTile extends StatelessWidget {
   final TransactionModel item;

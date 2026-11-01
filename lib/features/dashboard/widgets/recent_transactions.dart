@@ -3,9 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:top_pay/core/constants/app_sizes.dart';
 import 'package:top_pay/core/router/router.dart';
-import 'package:top_pay/features/transactions_history/widgets/transaction_tile.dart';
+import 'package:top_pay/features/transactions/widgets/transaction_tile.dart';
 import 'package:top_pay/shared/components/shimmer.dart';
-import 'package:top_pay/features/transactions_history/viewmodel/transactions_viewmodel.dart';
+import 'package:top_pay/features/transactions/viewmodel/transactions_viewmodel.dart';
 
 class RecentTransactions extends ConsumerStatefulWidget {
   const RecentTransactions({super.key});

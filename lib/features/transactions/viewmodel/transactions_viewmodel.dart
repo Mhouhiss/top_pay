@@ -5,8 +5,8 @@ import 'package:top_pay/core/providers/api_provider.dart';
 import 'package:top_pay/core/services/api_service.dart';
 import 'package:top_pay/core/utils/api_error_handler.dart';
 import 'package:top_pay/core/utils/logger.dart';
-import '../../transactions_history/model/transaction_model.dart';
-import '../../transactions_history/viewmodel/dummy_transactions.dart';
+import '../../transactions/model/transaction_model.dart';
+import '../../transactions/viewmodel/dummy_transactions.dart';
 // import 'package:top_pay/core/services/api_endpoints.dart';
 
 class TransactionHistoryState {

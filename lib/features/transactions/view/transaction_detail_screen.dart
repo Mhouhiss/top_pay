@@ -6,8 +6,8 @@ import 'package:top_pay/core/theme/app_colors.dart';
 import 'package:top_pay/core/utils/formatters.dart';
 import 'package:top_pay/shared/components/custom_appbar.dart';
 import 'package:top_pay/shared/components/custom_button.dart';
-import '../../transactions_history/model/transaction_model.dart';
-import '../../transactions_history/widgets/default_transaction_icon.dart';
+import '../../transactions/model/transaction_model.dart';
+import '../../transactions/widgets/default_transaction_icon.dart';
 
 class TransactionDetailScreen extends StatelessWidget {
   final TransactionModel transaction;
