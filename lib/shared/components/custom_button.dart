@@ -1,75 +1,3 @@
-// import 'package:flutter/material.dart';
-// import 'package:top_pay/core/constants/app_sizes.dart';
-//
-// class CustomButton extends StatelessWidget {
-//   final String text;
-//   final VoidCallback? onPressed;
-//   final bool enabled;
-//   final bool isLoading;
-//   final Widget? icon;
-//   final double? width;
-//   final double? height;
-//   final Color? backgroundColor;
-//   final Color? foregroundColor;
-//   final BorderRadius? borderRadius;
-//
-//   const CustomButton({
-//     super.key,
-//     required this.text,
-//     this.onPressed,
-//     this.enabled = true,
-//     this.isLoading = false,
-//     this.icon,
-//     this.width,
-//     this.height,
-//     this.backgroundColor,
-//     this.foregroundColor,
-//     this.borderRadius,
-//   });
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     final theme = Theme.of(context);
-//     final disabled = !enabled || onPressed == null || isLoading;
-//
-//     final child = isLoading
-//         ? SizedBox(
-//             height: AppSizes.iconMd,
-//             width: AppSizes.iconMd,
-//             child: CircularProgressIndicator(
-//               strokeWidth: 2.5,
-//               color:
-//                   foregroundColor ??
-//                   theme.elevatedButtonTheme.style?.foregroundColor?.resolve({}),
-//             ),
-//           )
-//         : Row(
-//             mainAxisSize: MainAxisSize.min,
-//             children: [
-//               if (icon != null) ...[icon!, const SizedBox(width: AppSizes.sm)],
-//               Text(text),
-//             ],
-//           );
-//
-//     return SizedBox(
-//       width: width,
-//       height: height ?? AppSizes.buttonHeight,
-//       child: ElevatedButton(
-//         onPressed: disabled ? null : onPressed,
-//         style: ElevatedButton.styleFrom(
-//           backgroundColor: backgroundColor,
-//           foregroundColor: foregroundColor,
-//           shape: RoundedRectangleBorder(
-//             borderRadius:
-//                 borderRadius ?? BorderRadius.circular(AppSizes.radiusSm),
-//           ),
-//         ),
-//         child: child,
-//       ),
-//     );
-//   }
-// }
-
 import 'package:flutter/material.dart';
 import 'package:top_pay/core/constants/app_sizes.dart';
 
@@ -308,3 +236,75 @@ class CustomButton extends StatelessWidget {
     }
   }
 }
+
+// import 'package:flutter/material.dart';
+// import 'package:top_pay/core/constants/app_sizes.dart';
+//
+// class CustomButton extends StatelessWidget {
+//   final String text;
+//   final VoidCallback? onPressed;
+//   final bool enabled;
+//   final bool isLoading;
+//   final Widget? icon;
+//   final double? width;
+//   final double? height;
+//   final Color? backgroundColor;
+//   final Color? foregroundColor;
+//   final BorderRadius? borderRadius;
+//
+//   const CustomButton({
+//     super.key,
+//     required this.text,
+//     this.onPressed,
+//     this.enabled = true,
+//     this.isLoading = false,
+//     this.icon,
+//     this.width,
+//     this.height,
+//     this.backgroundColor,
+//     this.foregroundColor,
+//     this.borderRadius,
+//   });
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     final theme = Theme.of(context);
+//     final disabled = !enabled || onPressed == null || isLoading;
+//
+//     final child = isLoading
+//         ? SizedBox(
+//             height: AppSizes.iconMd,
+//             width: AppSizes.iconMd,
+//             child: CircularProgressIndicator(
+//               strokeWidth: 2.5,
+//               color:
+//                   foregroundColor ??
+//                   theme.elevatedButtonTheme.style?.foregroundColor?.resolve({}),
+//             ),
+//           )
+//         : Row(
+//             mainAxisSize: MainAxisSize.min,
+//             children: [
+//               if (icon != null) ...[icon!, const SizedBox(width: AppSizes.sm)],
+//               Text(text),
+//             ],
+//           );
+//
+//     return SizedBox(
+//       width: width,
+//       height: height ?? AppSizes.buttonHeight,
+//       child: ElevatedButton(
+//         onPressed: disabled ? null : onPressed,
+//         style: ElevatedButton.styleFrom(
+//           backgroundColor: backgroundColor,
+//           foregroundColor: foregroundColor,
+//           shape: RoundedRectangleBorder(
+//             borderRadius:
+//                 borderRadius ?? BorderRadius.circular(AppSizes.radiusSm),
+//           ),
+//         ),
+//         child: child,
+//       ),
+//     );
+//   }
+// }
