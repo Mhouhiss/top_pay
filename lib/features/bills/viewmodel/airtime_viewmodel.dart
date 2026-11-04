@@ -83,9 +83,11 @@ class AirtimeViewModel extends StateNotifier<AirtimeState> {
     state = state.copyWith(request: request, clearPurchaseError: true);
   }
 
-  Future<void> purchase(String pin) async {
+  Future<AirtimePurchaseResult> purchase(String pin) async {
     final request = state.request;
-    if (request == null) return;
+    if (request == null) {
+      throw StateError('No airtime purchase is ready to submit.');
+    }
 
     state = state.copyWith(isPurchasing: true, clearPurchaseError: true);
     try {
@@ -94,6 +96,7 @@ class AirtimeViewModel extends StateNotifier<AirtimeState> {
         transactionPin: pin,
       );
       state = state.copyWith(isPurchasing: false, result: result);
+      return result;
     } catch (_) {
       state = state.copyWith(
         isPurchasing: false,
