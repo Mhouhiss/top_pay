@@ -4,11 +4,10 @@ import '../../bills/model/airtime_purchase_model.dart';
 import '../../bills/model/data_bundle_model.dart';
 
 class DataService {
-  // Development-only mock balance. Replace with the actual wallet API/state.
   Future<double> getWalletBalance() async {
     await Future.delayed(const Duration(milliseconds: 400));
 
-    // REAL API EXAMPLE (adapt to your confirmed backend response):
+    // REAL API
     // final response = await apiService.get(ApiEndpoints.walletBalance);
     // return (response.data['balance'] as num).toDouble();
 
@@ -18,7 +17,7 @@ class DataService {
   Future<List<DataBundleModel>> getBundles(AirtimeNetwork network) async {
     await Future.delayed(const Duration(milliseconds: 450));
 
-    // REAL API EXAMPLE:
+    // REAL API
     // final response = await apiService.get(
     //   ApiEndpoints.dataBundles,
     //   queryParameters: {'network': network.apiValue},
@@ -162,7 +161,7 @@ class DataService {
   }) async {
     await Future.delayed(const Duration(seconds: 1));
 
-    // REAL API EXAMPLE (adapt to your confirmed backend contract):
+    // REAL API
     // final response = await apiService.post(
     //   ApiEndpoints.dataPurchase,
     //   data: {
@@ -178,13 +177,15 @@ class DataService {
     if (kDebugMode) {
       debugPrint(
         'DUMMY DATA PURCHASE: ${request.network.apiValue}, '
-        '${request.phoneNumber}, ${request.bundle.id}, '
-        '${request.bundle.price}',
+            '${request.phoneNumber}, ${request.bundle.id}, '
+            '${request.bundle.price}',
       );
     }
 
     return DataPurchaseResult(
-      reference: 'TPDATA${DateTime.now().millisecondsSinceEpoch}',
+      reference: 'TPDATA${DateTime
+          .now()
+          .millisecondsSinceEpoch}',
       successful: true,
       message: 'Data bundle purchase completed successfully.',
       createdAt: DateTime.now(),

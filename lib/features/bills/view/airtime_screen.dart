@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:top_pay/core/constants/app_assets.dart';
 import 'package:top_pay/core/router/router.dart';
+import 'package:top_pay/core/utils/phone_utils.dart';
 import 'package:top_pay/features/bills/widgets/phone_number_field.dart';
 import 'package:top_pay/shared/components/custom_appbar.dart';
 import '../../transactions/model/transaction_model.dart';
@@ -26,7 +28,7 @@ class _AirtimeScreenState extends ConsumerState<AirtimeScreen> {
   final _phoneController = TextEditingController();
   final _amountController = TextEditingController();
 
-  String _network = 'mtn';
+  AirtimeNetwork _network = AirtimeNetwork.mtn;
   double? _selectedQuickAmount;
 
   static const _quickAmounts = <double>[100, 200, 500, 1000, 2000, 5000];
@@ -36,13 +38,6 @@ class _AirtimeScreenState extends ConsumerState<AirtimeScreen> {
     _phoneController.dispose();
     _amountController.dispose();
     super.dispose();
-  }
-
-  String _normalisePhone(String input) {
-    var phone = input.replaceAll(RegExp(r'[\s\-()]'), '');
-    if (phone.startsWith('+234')) phone = '0${phone.substring(4)}';
-    if (phone.startsWith('234')) phone = '0${phone.substring(3)}';
-    return phone;
   }
 
   void _selectAmount(double amount) {
@@ -59,7 +54,7 @@ class _AirtimeScreenState extends ConsumerState<AirtimeScreen> {
     final balance = state.walletBalance;
     if (balance == null) return;
 
-    final phone = _normalisePhone(_phoneController.text);
+    final phone = PhoneUtils.normalisePhone(_phoneController.text);
     final amount = double.parse(_amountController.text.trim());
 
     if (amount > balance) {
@@ -81,6 +76,7 @@ class _AirtimeScreenState extends ConsumerState<AirtimeScreen> {
         builder: (_) => ServiceConfirmationScreen(
           serviceName: 'Airtime',
           provider: request.network.label,
+          providerIcon: _getLogo(request.network.label),
           recipientLabel: 'Phone number',
           recipient: request.phoneNumber,
           amount: request.amount,
@@ -135,58 +131,6 @@ class _AirtimeScreenState extends ConsumerState<AirtimeScreen> {
               const SizedBox(height: AppSizes.xl),
               Text('Mobile number', style: theme.textTheme.titleMedium),
               const SizedBox(height: AppSizes.sm),
-              // Container(
-              //   padding: const EdgeInsets.symmetric(horizontal: AppSizes.sm),
-              //   decoration: BoxDecoration(
-              //     border: Border.all(color: colors.outlineVariant),
-              //     borderRadius: BorderRadius.circular(AppSizes.radiusMd),
-              //   ),
-              //   child: Row(
-              //     crossAxisAlignment: CrossAxisAlignment.center,
-              //     children: [
-              //       NetworkSelector(
-              //         value: _network,
-              //         onChanged: (value) => setState(() => _network = value),
-              //       ),
-              //       Container(
-              //         height: 32,
-              //         width: 1,
-              //         color: colors.outlineVariant,
-              //         margin: const EdgeInsets.symmetric(
-              //           horizontal: AppSizes.sm,
-              //         ),
-              //       ),
-              //       Expanded(
-              //         child: TextFormField(
-              //           controller: _phoneController,
-              //           keyboardType: TextInputType.phone,
-              //           textInputAction: TextInputAction.next,
-              //           decoration: const InputDecoration(
-              //             hintText: '08012345678',
-              //             border: InputBorder.none,
-              //             isDense: true,
-              //           ),
-              //           validator: (value) {
-              //             final phone = _normalisePhone(value ?? '');
-              //             if (phone.isEmpty) return 'Enter a phone number';
-              //             if (!RegExp(r'^0[789]\d{9}$').hasMatch(phone)) {
-              //               return 'Enter a valid Nigerian mobile number';
-              //             }
-              //             return null;
-              //           },
-              //         ),
-              //       ),
-              //       ContactPickerButton(
-              //         normalisePhone: _normalisePhone,
-              //         onPhoneSelected: (phone) {
-              //           setState(() {
-              //             _phoneController.text = phone;
-              //           });
-              //         },
-              //       ),
-              //     ],
-              //   ),
-              // ),
               PhoneNumberField(
                 network: _network,
                 onNetworkChanged: (value) {
@@ -278,5 +222,20 @@ class _AirtimeScreenState extends ConsumerState<AirtimeScreen> {
         ),
       ),
     );
+  }
+
+  String _getLogo(String provider) {
+    switch (provider.toLowerCase().trim()) {
+      case 'mtn':
+        return AppAssets.mtn;
+      case 'airtel':
+        return AppAssets.airtel;
+      case 'glo':
+        return AppAssets.glo;
+      case '9mobile':
+        return AppAssets.nineMobile;
+      default:
+        return AppAssets.airtime;
+    }
   }
 }

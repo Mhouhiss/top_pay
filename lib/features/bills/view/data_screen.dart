@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:top_pay/core/constants/app_assets.dart';
 import 'package:top_pay/core/router/router.dart';
 import 'package:top_pay/core/utils/auth_validator.dart';
+import 'package:top_pay/core/utils/phone_utils.dart';
 import 'package:top_pay/features/bills/widgets/phone_number_field.dart';
 import 'package:top_pay/features/bills/widgets/wallet_balance_card.dart';
 import '../../transactions/model/transaction_model.dart';
@@ -10,8 +12,6 @@ import '../../../../core/theme/app_colors.dart';
 import '../../../../core/constants/app_sizes.dart';
 import '../../../core/utils/formatters.dart';
 import '../../bills/model/airtime_purchase_model.dart';
-import '../../bills/widgets/network_selector.dart';
-import '../../bills/widgets/contact_picker_button.dart';
 import '../model/data_bundle_model.dart';
 import '../viewmodel/data_viewmodel.dart';
 import '../../bills/view/confirmation_screen.dart';
@@ -27,7 +27,7 @@ class _DataScreenState extends ConsumerState<DataScreen> {
   final _formKey = GlobalKey<FormState>();
   final _phoneController = TextEditingController();
 
-  String _network = 'mtn';
+  AirtimeNetwork _network = AirtimeNetwork.mtn;
   DataBundleModel? _selectedBundle;
 
   @override
@@ -45,13 +45,6 @@ class _DataScreenState extends ConsumerState<DataScreen> {
     _phoneController.dispose();
     super.dispose();
   }
-
-  // String _normalisePhone(String input) {
-  //   var phone = input.replaceAll(RegExp(r'[\s\-()]'), '');
-  //   if (phone.startsWith('+234')) phone = '0${phone.substring(4)}';
-  //   if (phone.startsWith('234')) phone = '0${phone.substring(3)}';
-  //   return phone;
-  // }
 
   void _changeNetwork(AirtimeNetwork network) {
     setState(() {
@@ -84,7 +77,7 @@ class _DataScreenState extends ConsumerState<DataScreen> {
 
     final request = DataPurchaseRequest(
       network: _network,
-      phoneNumber: _normalisePhone(_phoneController.text),
+      phoneNumber: PhoneUtils.normalisePhone(_phoneController.text),
       bundle: bundle,
     );
     ref.read(dataViewModelProvider.notifier).setRequest(request);
@@ -94,6 +87,7 @@ class _DataScreenState extends ConsumerState<DataScreen> {
         builder: (_) => ServiceConfirmationScreen(
           serviceName: 'Data',
           provider: request.network.label,
+          providerIcon: _getLogo(request.network.label),
           recipientLabel: 'Phone number',
           recipient: request.phoneNumber,
           amount: request.bundle.price,
@@ -297,5 +291,20 @@ class _DataScreenState extends ConsumerState<DataScreen> {
         ),
       ),
     );
+  }
+
+  String _getLogo(String provider) {
+    switch (provider.toLowerCase().trim()) {
+      case 'mtn':
+        return AppAssets.mtn;
+      case 'airtel':
+        return AppAssets.airtel;
+      case 'glo':
+        return AppAssets.glo;
+      case '9mobile':
+        return AppAssets.nineMobile;
+      default:
+        return AppAssets.data;
+    }
   }
 }

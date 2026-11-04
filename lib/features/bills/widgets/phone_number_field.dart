@@ -7,8 +7,8 @@ import 'contact_picker_button.dart';
 import 'network_selector.dart';
 
 class PhoneNumberField extends StatelessWidget {
-  final String network;
-  final ValueChanged<String> onNetworkChanged;
+  final AirtimeNetwork network;
+  final ValueChanged<AirtimeNetwork> onNetworkChanged;
   final TextEditingController controller;
   final String? Function(String?)? validator;
 

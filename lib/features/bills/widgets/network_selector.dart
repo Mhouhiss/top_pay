@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:top_pay/core/constants/app_assets.dart';
+import 'package:top_pay/features/bills/model/airtime_purchase_model.dart';
 
 import '../../../../core/constants/app_sizes.dart';
 
 class NetworkSelector extends StatelessWidget {
-  final String value;
-  final ValueChanged<String> onChanged;
+  final AirtimeNetwork value;
+  final ValueChanged<AirtimeNetwork> onChanged;
 
   const NetworkSelector({
     super.key,
@@ -13,30 +14,30 @@ class NetworkSelector extends StatelessWidget {
     required this.onChanged,
   });
 
-  static const Map<String, String> _networkLogos = {
-    'MTN': AppAssets.mtn,
-    'Airtel': AppAssets.airtel,
-    'Glo': AppAssets.glo,
-    '9mobile': AppAssets.nineMobile,
+  static const Map<AirtimeNetwork, String> _networkLogos = {
+    AirtimeNetwork.mtn: AppAssets.mtn,
+    AirtimeNetwork.airtel: AppAssets.airtel,
+    AirtimeNetwork.glo: AppAssets.glo,
+    AirtimeNetwork.nineMobile: AppAssets.nineMobile,
   };
 
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
 
-    return PopupMenuButton<String>(
+    return PopupMenuButton<AirtimeNetwork>(
       initialValue: value,
       tooltip: 'Select network',
       onSelected: onChanged,
       itemBuilder: (context) {
-        return _networkLogos.keys.map((network) {
-          return PopupMenuItem<String>(
+        return AirtimeNetwork.values.map((network) {
+          return PopupMenuItem<AirtimeNetwork>(
             value: network,
             child: Row(
               children: [
                 _buildLogo(network),
                 const SizedBox(width: AppSizes.sm),
-                Text(network),
+                Text(network.label),
               ],
             ),
           );
@@ -53,7 +54,7 @@ class NetworkSelector extends StatelessWidget {
     );
   }
 
-  Widget _buildLogo(String network) {
+  Widget _buildLogo(AirtimeNetwork network) {
     final logo = _networkLogos[network];
 
     return ClipOval(
@@ -64,17 +65,17 @@ class NetworkSelector extends StatelessWidget {
             ? Image.asset(
                 logo,
                 fit: BoxFit.contain,
-                errorBuilder: (_, __, ___) => _fallbackLogo(network),
+                errorBuilder: (_, _, _) => _fallbackLogo(network),
               )
             : _fallbackLogo(network),
       ),
     );
   }
 
-  Widget _fallbackLogo(String network) {
+  Widget _fallbackLogo(AirtimeNetwork network) {
     return CircleAvatar(
       child: Text(
-        network.substring(0, 1),
+        network.label.substring(0, 1),
         style: const TextStyle(fontWeight: FontWeight.bold),
       ),
     );

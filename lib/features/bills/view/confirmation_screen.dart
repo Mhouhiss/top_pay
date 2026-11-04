@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 
 import 'package:top_pay/core/theme/app_colors.dart';
 import 'package:top_pay/core/constants/app_sizes.dart';
+import 'package:top_pay/core/utils/formatters.dart';
 import '../../transactions/model/transaction_model.dart';
 import '../widgets/transaction_pin_bottom_sheet.dart';
 
@@ -11,6 +12,7 @@ class ServiceConfirmationScreen extends StatelessWidget {
     super.key,
     required this.serviceName,
     required this.provider,
+    required this.providerIcon,
     required this.recipientLabel,
     required this.recipient,
     required this.amount,
@@ -22,6 +24,7 @@ class ServiceConfirmationScreen extends StatelessWidget {
 
   final String serviceName;
   final String provider;
+  final String providerIcon;
   final String recipientLabel;
   final String recipient;
   final double amount;
@@ -31,15 +34,6 @@ class ServiceConfirmationScreen extends StatelessWidget {
   final Future<TransactionModel> Function(String pin) onSubmit;
 
   double get _total => amount + fee;
-
-  String _formatAmount(num amount) {
-    final raw = amount.toStringAsFixed(2).split('.');
-    final whole = raw.first.replaceAllMapped(
-      RegExp(r'(\d)(?=(\d{3})+(?!\d))'),
-      (match) => '${match[1]},',
-    );
-    return '₦$whole.${raw.last}';
-  }
 
   Future<void> _continueToPin(BuildContext context) async {
     FocusScope.of(context).unfocus();
@@ -73,10 +67,11 @@ class ServiceConfirmationScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               const SizedBox(height: AppSizes.lg),
-              Icon(
-                Icons.receipt_long_outlined,
-                size: 52,
-                color: colors.primary,
+              Image.asset(
+                providerIcon,
+                width: 64,
+                height: 64,
+                fit: BoxFit.contain,
               ),
               const SizedBox(height: AppSizes.md),
               Text(
@@ -103,7 +98,7 @@ class ServiceConfirmationScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: AppSizes.xs),
                     Text(
-                      _formatAmount(_total),
+                      Formatters.amount(_total),
                       style: theme.textTheme.headlineSmall?.copyWith(
                         color: AppColors.primary,
                         fontWeight: FontWeight.w700,
@@ -118,12 +113,15 @@ class ServiceConfirmationScreen extends StatelessWidget {
               _DetailRow(label: recipientLabel, value: recipient),
               if (description != null && description!.trim().isNotEmpty)
                 _DetailRow(label: 'Plan / Description', value: description!),
-              _DetailRow(label: 'Amount', value: _formatAmount(amount)),
-              _DetailRow(label: 'Transaction fee', value: _formatAmount(fee)),
+              _DetailRow(label: 'Amount', value: Formatters.amount(amount)),
+              _DetailRow(
+                label: 'Transaction fee',
+                value: Formatters.amount(fee),
+              ),
               const Divider(height: AppSizes.xl),
               _DetailRow(
                 label: 'Total',
-                value: _formatAmount(_total),
+                value: Formatters.amount(_total),
                 isTotal: true,
               ),
               const Spacer(),

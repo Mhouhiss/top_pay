@@ -1,3 +1,5 @@
+import 'package:top_pay/features/bills/model/airtime_purchase_model.dart';
+
 class PhoneUtils {
   static String normalisePhone(String phone) {
     final cleaned = phone.replaceAll(RegExp(r'\s'), '');
@@ -13,13 +15,13 @@ class PhoneUtils {
     return cleaned;
   }
 
-  static String? detectNetwork(String phone) {
+  static AirtimeNetwork? detectNetwork(String phone) {
     final number = normalisePhone(phone).replaceAll(RegExp(r'\D'), '');
 
     if (number.length < 4) return null;
 
     const prefixes = {
-      'MTN': [
+      AirtimeNetwork.mtn: [
         '07025',
         '07026',
         '0703',
@@ -35,7 +37,7 @@ class PhoneUtils {
         '0913',
         '0916',
       ],
-      'Airtel': [
+      AirtimeNetwork.airtel: [
         '0701',
         '0708',
         '0802',
@@ -46,8 +48,22 @@ class PhoneUtils {
         '0907',
         '0912',
       ],
-      'Glo': ['0705', '0805', '0807', '0811', '0815', '0905', '0915'],
-      '9mobile': ['0809', '0817', '0818', '0908', '0909'],
+      AirtimeNetwork.glo: [
+        '0705',
+        '0805',
+        '0807',
+        '0811',
+        '0815',
+        '0905',
+        '0915',
+      ],
+      AirtimeNetwork.nineMobile: [
+        '0809',
+        '0817',
+        '0818',
+        '0908',
+        '0909',
+      ],
     };
 
     for (final entry in prefixes.entries) {

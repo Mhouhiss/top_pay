@@ -4,7 +4,6 @@ import '../model/airtime_purchase_model.dart';
 import '../../../core/utils/logger.dart';
 
 class AirtimeService {
-  // Development-only mock balance.
   Future<double> getWalletBalance() async {
     await Future.delayed(const Duration(milliseconds: 500));
 
@@ -38,7 +37,6 @@ class AirtimeService {
     //   createdAt: DateTime.now(),
     // );
 
-    // Dummy response only; do not use as real transaction security.
     if (kDebugMode) {
       Logger.info(
         'DUMMY AIRTIME PURCHASE: ${request.network.apiValue}, '

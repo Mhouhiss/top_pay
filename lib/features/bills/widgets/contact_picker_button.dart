@@ -15,18 +15,37 @@ class ContactPickerButton extends StatelessWidget {
 
   Future<void> _pickContact(BuildContext context) async {
     try {
+      final permission = await FlutterContacts.permissions.request(
+        PermissionType.read,
+      );
+
+      if (!context.mounted) return;
+
+      if (permission != PermissionStatus.granted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Contacts permission is required.')),
+        );
+        return;
+      }
+
       final contact = await FlutterContacts.native.showPicker(
         properties: {ContactProperty.phone},
       );
 
       if (!context.mounted || contact == null) return;
 
-      if (contact.phones.isEmpty) return;
+      if (contact.phones.isEmpty) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('This contact has no phone number.')),
+        );
+        return;
+      }
 
-      final phone = contact.phones.first.number;
+      onPhoneSelected(normalisePhone(contact.phones.first.number));
+    } catch (e, stackTrace) {
+      debugPrint('Contact picker error: $e');
+      debugPrintStack(stackTrace: stackTrace);
 
-      onPhoneSelected(normalisePhone(phone));
-    } catch (e) {
       if (!context.mounted) return;
 
       ScaffoldMessenger.of(context).showSnackBar(
@@ -42,7 +61,7 @@ class ContactPickerButton extends StatelessWidget {
     return IconButton(
       tooltip: 'Choose contact',
       onPressed: () => _pickContact(context),
-      icon: const Icon(Icons.contact_page_outlined),
+      icon: const Icon(Icons.contacts_outlined),
       iconSize: AppSizes.iconMd,
     );
   }
