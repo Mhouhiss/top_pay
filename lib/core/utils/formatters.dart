@@ -51,12 +51,14 @@ class Formatters {
 
   static String date(DateTime date) => DateFormat('MMM d, yyyy').format(date);
 
-  static String date_(DateTime date) => DateFormat('MMM d').format(date);
-
-  /// Formats a phone number as the user types, e.g. 0801 234 5678.
-  static String maskPhone(String phone) {
-    if (phone.length < 4) return phone;
-    final visible = phone.substring(0, phone.length - 4);
-    return '${'*' * visible.length}${phone.substring(phone.length - 4)}';
+  static String normalisePhone(String phone) {
+    final cleaned = phone.replaceAll(RegExp(r'\s'), '');
+    if (cleaned.startsWith('+234')) {
+      return '0${cleaned.substring(4)}';
+    }
+    if (cleaned.startsWith('234')) {
+      return '0${cleaned.substring(3)}';
+    }
+    return cleaned;
   }
 }

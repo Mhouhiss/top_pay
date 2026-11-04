@@ -1,13 +1,15 @@
 import 'package:go_router/go_router.dart';
 import 'package:top_pay/core/router/router.dart';
+import 'package:top_pay/features/bills/view/airtime_screen.dart';
+import 'package:top_pay/features/bills/view/all_services.dart';
 import 'package:top_pay/features/bills/view/data_screen.dart';
 import 'package:top_pay/features/bills/view/electricity_screen.dart';
 import 'package:top_pay/features/notification/view/notification_screen.dart';
 import 'package:top_pay/features/profile/view/edit_profile_screen.dart';
 import 'package:top_pay/features/profile/view/profile_screen.dart';
-import 'package:top_pay/features/transactions_history/model/transaction_model.dart';
-import 'package:top_pay/features/transactions_history/view/transactions_screen.dart';
-import 'package:top_pay/features/transactions_history/view/transaction_detail_screen.dart';
+import 'package:top_pay/features/transactions/model/transaction_model.dart';
+import 'package:top_pay/features/transactions/view/transactions_screen.dart';
+import 'package:top_pay/features/transactions/view/transaction_detail_screen.dart';
 
 import '../../features/splash/view/splash_screen.dart';
 import '../../features/onboarding/view/onboarding_screen.dart';
@@ -89,7 +91,7 @@ final GoRouter router = GoRouter(
 
     GoRoute(
       path: AppRoutes.airtime,
-      builder: (context, state) => const DataScreen(),
+      builder: (context, state) => const AirtimeScreen(),
     ),
     GoRoute(
       path: AppRoutes.data,
@@ -98,6 +100,10 @@ final GoRouter router = GoRouter(
     GoRoute(
       path: AppRoutes.electricity,
       builder: (context, state) => const ElectricityScreen(),
+    ),
+    GoRoute(
+      path: AppRoutes.services,
+      builder: (context, state) => const AllServicesScreen(),
     ),
   ],
 );
